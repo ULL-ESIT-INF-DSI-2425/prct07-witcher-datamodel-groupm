@@ -51,3 +51,6 @@ _Corre todos los test con coveralls_
 - **Nombre:** José Suárez Felipe
 - **Correo Electrónico:** alu0101556376@ull.edu.es
 
+[![Tests](https://github.com/ULL-ESIT-INF-DSI-2425/prct07-witcher-datamodel-groupm/actions/workflows/ci.yml/badge.svg)](https://github.com/ULL-ESIT-INF-DSI-2425/prct07-witcher-datamodel-groupm/actions/workflows/ci.yml)
+
+[![Coverage Status](https://coveralls.io/repos/github/ULL-ESIT-INF-DSI-2425/prct07-witcher-datamodel-groupm/badge.svg?branch=main)](https://coveralls.io/github/ULL-ESIT-INF-DSI-2425/prct07-witcher-datamodel-groupm?branch=main)
