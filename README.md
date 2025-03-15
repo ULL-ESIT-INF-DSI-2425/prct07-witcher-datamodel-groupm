@@ -47,7 +47,7 @@ _Corre todos los test con coveralls_
 
 - **Nombre:** Daniel Enrique Gómez Alcaá
 - **Correo Electrónico:** alu0101547961@ull.edu.es
-- 
+  
 - **Nombre:** José Suárez Felipe
 - **Correo Electrónico:** alu0101556376@ull.edu.es
 
