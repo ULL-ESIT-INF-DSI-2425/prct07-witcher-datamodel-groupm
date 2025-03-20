@@ -33,10 +33,7 @@ export class Cliente {
    */
   print(): void {
     console.log(
-      `ID: ${this.id} 
-      Nombre: ${this.nombre}
-      Raza: ${this.raza}
-      Lugar: ${this.lugar}`
+      `ID: ${this.id}\nNombre: ${this.nombre}\nRaza: ${this.raza}\nLugar: ${this.lugar}`
     );
   }
 };
@@ -116,12 +113,19 @@ export class ColeccionClientes {
       case "Nombre":
         return new ColeccionClientes(this.clientes.filter(c => c.nombre.includes(busqueda)));
       case "Raza":
-        return new ColeccionClientes(this.clientes.filter(c => c.raza.includes(busqueda)));
+        return new ColeccionClientes(this.clientes.filter(c => c.raza === busqueda));
       case "Lugar":
-        return new ColeccionClientes(this.clientes.filter(c => c.lugar.includes(busqueda)));
+        return new ColeccionClientes(this.clientes.filter(c => c.lugar === busqueda));
       default:
         throw new Error(`Ha ocurrido un error a la hora de hacer la busqueda de un cliente`);
     }
+  }
+
+  /**
+   * Método para imprimir la información de todos los clientes en la colección
+   */
+  print(): void {
+    this.clientes.forEach(cliente => cliente.print());
   }
 }
 

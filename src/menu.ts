@@ -38,6 +38,7 @@ enum Comandos {
   REMOVE = 'Eliminar',
   MODIFY = 'Modificar',
   BUSCAR_BIEN = 'Buscar bien',
+  LOCALIZAR = 'Localizar',
   QUIT = 'Salir'
 }
 
@@ -75,6 +76,9 @@ async function promptUser() {
       break;
     case Comandos.BUSCAR_BIEN:
       await promptBuscarBien();
+      break;
+    case Comandos.LOCALIZAR:
+      await promptLocalizar();
       break;
     case Comandos.QUIT:
       console.log('¡Adiós!');
@@ -252,6 +256,66 @@ async function promptBuscarBien() {
   console.clear();
   promptUser();
 }
+
+async function promptLocalizar() {
+  console.clear();
+  console.log(`Buscar Bien\n`);
+
+  const { tipo } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'tipo',
+      message: 'Seleccione el criterio de búsqueda',
+      choices: ['Mercader', 'Cliente'],
+    },
+  ]);
+  let resultados = null;
+  if (tipo === 'Mercader') {
+    const { campo, entrada } = await inquirer.prompt([   
+      {
+        type: 'list',
+        name: 'campo',
+        message: 'Seleccione el campo de búsqueda',
+        choices: ['Profesion', 'Nombre', 'Lugar'],
+      },
+      {
+        type: 'input',
+        name: 'entrada',
+        message: `Ingrese el valor de búsqueda: `,
+      }
+    ]);
+    resultados = inventario.mercaderes.buscar(campo, entrada);
+  }
+  else {
+    const { campo, entrada } = await inquirer.prompt([   
+      {
+        type: 'list',
+        name: 'campo',
+        message: 'Seleccione el campo de búsqueda',
+        choices: ['Raza', 'Nombre', 'Lugar'],
+      },
+      {
+        type: 'input',
+        name: 'entrada',
+        message: `Ingrese el valor de búsqueda: `,
+      }
+    ]);
+    resultados = inventario.clientes.buscar(campo, entrada);
+  }
+  resultados.print();
+  const { continuar } = await inquirer.prompt({
+    type: 'confirm',
+    name: 'continuar',
+    message: '¿Deseas continuar?',
+  });
+  if (!continuar) {
+    console.log('¡Adiós!');
+    return;
+  }
+  console.clear();
+  promptUser();
+}
+
 
 // Iniciar la aplicación
 promptUser();

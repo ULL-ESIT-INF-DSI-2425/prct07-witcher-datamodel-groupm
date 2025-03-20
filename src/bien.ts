@@ -37,11 +37,7 @@ export class Bien {
    */
   print(): void {
     console.log(
-      `ID: ${this.id}
-      Nombre: ${this.nombre} 
-      Valor: ${this.valor}
-      Material: ${this.material}
-      Peso: ${this.peso}`
+      `ID: ${this.id}\nNombre: ${this.nombre}\nValor: ${this.valor}\nMaterial: ${this.material}\nPeso: ${this.peso}`
     );
   }
 };

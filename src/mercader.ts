@@ -126,4 +126,11 @@ export class ColeccionMercaderes {
         throw new Error(`Ha ocurrido un error a la hora de hacer la busqueda de un cliente`);
     }
   }
+
+  /**
+   * Método para imprimir la información de todos los mercaderes en la colección
+   */
+  print(): void {
+    this.mercaderes.forEach(mercader => mercader.print());
+  }
 }
