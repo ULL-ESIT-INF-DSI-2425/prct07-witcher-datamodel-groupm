@@ -1,12 +1,19 @@
 /**
  * Tipo Material = 'Acero de Mahakam' | 'cuero endurecido' | 'esencia mágica' | 'mutágenos de bestias antiguas'
  */
-type Material = 'Acero de Mahakam' | 'Cuero endurecido' | 'Esencia magica' | 'Mutagenos de bestias antiguas';
+export type Material = 'Acero de Mahakam' | 'Cuero endurecido' | 'Esencia magica' | 'Mutagenos de bestias antiguas';
 
 /**
  * Clase Bienes
  */
-class Bienes {
+export class Bienes {
+  private _id: number
+  private _nombre: string
+  private _descripcion: string
+  private _material: Material
+  private _peso: number
+  private _valor: number
+  
   /**
    * Constructor de la clase Bienes
    * @param _id 
@@ -16,7 +23,13 @@ class Bienes {
    * @param _peso 
    * @param _valor 
    */
-  constructor(private _id: number, private readonly _nombre: string, private _descripcion: string, private _material: Material, private _peso: number, private _valor: number) {
+  constructor(id: number, nombre: string, descripcion: string, material: Material, peso: number, valor: number) {
+    this._id = id;
+    this._nombre = nombre;
+    this._descripcion = descripcion;
+    this._material = material;
+    this._peso = peso;
+    this._valor = valor;
   }
 
   /**
@@ -41,6 +54,10 @@ class Bienes {
    */
   get nombre() {
     return this._nombre;
+  }
+
+  set nombre(nombre: string) {
+    this._nombre = nombre;
   }
 
   /**
@@ -105,5 +122,9 @@ class Bienes {
    */
   set valor(valor: number) {
     this._valor = valor;
+  }
+
+  print() {
+    console.log(`ID: ${this.id} - Nombre: ${this.nombre} - Valor: ${this.valor}`);
   }
 };

@@ -1,7 +1,7 @@
 /**
  * type profesion = 'Herrero' | 'Alquimista' | 'Mercader general';
  */
-type Profesion = 'Herrero' | 'Alquimista' | 'Mercader general';
+export type Profesion = 'Herrero' | 'Alquimista' | 'Mercader general';
 
 /**
  * type lugar = 'Novigrado' | 'Velen' | 'Kaer Trolde';
@@ -11,7 +11,7 @@ export type Lugar = 'Novigrado' | 'Velen' | 'Kaer Trolde';
 /**
  * Clase Mercader
  */
-class Mercader {
+export class Mercader {
   /**
    * Constructor de la clase Mercader
    * @param _id 
@@ -19,7 +19,7 @@ class Mercader {
    * @param _profesion 
    * @param _lugar 
    */
-  constructor(private _id: number, private readonly _nombre: string, private _profesion: Profesion, private _lugar: Lugar) {
+  constructor(private _id: number, private _nombre: string, private _profesion: Profesion, private _lugar: Lugar) {
   }
 
   /**
@@ -44,6 +44,10 @@ class Mercader {
    */
   get nombre() {
     return this._nombre;
+  }
+
+  set nombre(nombre: string) {
+    this._nombre = nombre;
   }
 
   /**
@@ -76,5 +80,9 @@ class Mercader {
    */
   set lugar(lugar: Lugar) {
     this._lugar = lugar;
+  }
+
+  print(): void {
+    console.log(`ID: ${this.id} - Nombre: ${this.nombre}`);
   }
 }

@@ -3,12 +3,12 @@ import { Lugar } from './mercader.js';
 /**
  * Tipo Raza = 'Humano' | 'Elfo' | 'Enano' | 'Hechicero'
  */
-type Raza = 'Humano' | 'Elfo' | 'Enano' | 'Hechicero';
+export type Raza = 'Humano' | 'Elfo' | 'Enano' | 'Hechicero';
 
 /**
  * Clase Cliente
  */
-class Cliente {
+export class Cliente {
   /**
    * Constructor de la clase Cliente
    * @param _id 
@@ -16,7 +16,7 @@ class Cliente {
    * @param _raza 
    * @param _lugar 
    */
-  constructor(private _id: number, private readonly _nombre: string, private _raza: Raza, private _lugar: Lugar) {
+  constructor(private _id: number, private _nombre: string, private _raza: Raza, private _lugar: Lugar) {
   }
 
   /**
@@ -41,6 +41,10 @@ class Cliente {
    */
   get nombre() {
     return this._nombre;
+  }
+
+  set nombre(nombre: string) {
+    this._nombre = nombre;
   }
 
   /**
@@ -73,6 +77,13 @@ class Cliente {
    */
   set lugar(lugar: Lugar) {
     this._lugar = lugar;
+  }
+
+  /**
+   * Método para imprimir la información del cliente
+   */
+  print(): void {
+    console.log(`ID: ${this._id} - Nombre: ${this._nombre}`);
   }
 };
 
