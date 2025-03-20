@@ -1,31 +1,38 @@
 import inquirer from 'inquirer';
 import { Inventario } from './inventario.js';
-import { Bienes } from './bienes.js';
-import { Cliente } from './cliente.js';
-import { Mercader } from './mercader.js';
+import { ColeccionBienes, Bien } from './bien.js';
+import { ColeccionClientes, Cliente } from './cliente.js';
+import { ColeccionMercaderes, Mercader } from './mercader.js';
 
 // Datos iniciales
-const bienes = [
-  new Bienes(1, 'Espada', '', 'Acero de Mahakam', 100, 500),
-  new Bienes(2, 'Pala', '', 'Cuero endurecido', 10, 100),
-  new Bienes(3, 'Pico', '', 'Esencia magica', 200, 200)
+const declaracionBienes = [
+  new Bien(1, 'Espada', '', 'Acero de Mahakam', 100, 500),
+  new Bien(2, 'Pala', '', 'Cuero endurecido', 10, 100),
+  new Bien(3, 'Pico', '', 'Esencia magica', 200, 200)
 ];
 
-const clientes = [
+const declaracionClientes = [
   new Cliente(1, 'Geralt', 'Humano', 'Novigrado'),
   new Cliente(2, 'Daniel', 'Elfo', 'Novigrado'),
   new Cliente(3, 'Jose', 'Humano', 'Velen')
 ];
 
-const mercaderes = [
+const declaracionMercaderes = [
   new Mercader(1, 'Geralt', 'Herrero', 'Novigrado'),
   new Mercader(2, 'Daniel', 'Alquimista', 'Novigrado'),
   new Mercader(3, 'Jose', 'Herrero', 'Velen')
 ];
 
+let bienes = new ColeccionBienes(declaracionBienes);
+let clientes = new ColeccionClientes(declaracionClientes);
+let mercaderes = new ColeccionMercaderes(declaracionMercaderes);
+
 let inventario = new Inventario(bienes, mercaderes, clientes);
 
 // Enumeraciones para los comandos y tipos de entidades
+/**
+ * Enumeración Comandos
+ */
 enum Comandos {
   ADD = 'Agregar',
   REMOVE = 'Eliminar',
@@ -34,6 +41,9 @@ enum Comandos {
   QUIT = 'Salir'
 }
 
+/**
+ * Enumeración Entidades
+ */
 enum Entidades {
   BIEN = 'Bien',
   CLIENTE = 'Cliente',
@@ -44,7 +54,7 @@ enum Entidades {
 async function promptUser() {
   console.log(`La Posada del Lobo Blanco\n`);
 
-  inventario.mostrar();
+  inventario.print();
 
   const { comando } = await inquirer.prompt({
     type: 'list',
@@ -95,13 +105,13 @@ async function promptAgregar() {
   if (datos) {
     switch (entidad) {
       case Entidades.BIEN:
-        inventario.addBien(datos);
+        inventario.bienes.añadir(datos);
         break;
       case Entidades.CLIENTE:
-        inventario.addCliente(datos);
+        inventario.clientes.añadir(datos);
         break;
       case Entidades.MERCADER:
-        inventario.addMercader(datos);
+        inventario.mercaderes.añadir(datos);
         break;
     }
   }
@@ -111,7 +121,7 @@ async function promptAgregar() {
 async function promptEliminar() {
   console.clear();
   console.log(`Eliminar\n`);
-  inventario.mostrar();
+  inventario.print();
 
   const { entidad } = await inquirer.prompt({
     type: 'list',
@@ -129,13 +139,13 @@ async function promptEliminar() {
   if (id) {
     switch (entidad) {
       case Entidades.BIEN:
-        inventario.removeBien(Number(id));
+        inventario.bienes.eliminar(Number(id));
         break;
       case Entidades.CLIENTE:
-        inventario.removeCliente(Number(id));
+        inventario.clientes.eliminar(Number(id));
         break;
       case Entidades.MERCADER:
-        inventario.removeMercader(Number(id));
+        inventario.mercaderes.eliminar(Number(id));
         break;
     }
   }
@@ -174,13 +184,13 @@ async function promptModificar() {
   if (id && campo && valor) {
     switch (entidad) {
       case Entidades.BIEN:
-        inventario.modifyBien(Number(id), String(campo), String(valor));
+        inventario.bienes.modificar(Number(id), String(campo), String(valor));
         break;
       case Entidades.CLIENTE:
-        inventario.modifyCliente(Number(id), String(campo), String(valor));
+        inventario.clientes.modificar(Number(id), String(campo), String(valor));
         break;
       case Entidades.MERCADER:
-        inventario.modifyMercader(Number(id), String(campo), String(valor));
+        inventario.mercaderes.modificar(Number(id), String(campo), String(valor));
         break;
     }
   }
@@ -211,24 +221,24 @@ async function promptBuscarBien() {
     message: `Ingrese el valor del ${criterio.toLowerCase()} a buscar: `,
   });
 
-  let resultados = inventario.buscarBienes(criterio.toLowerCase(), valor);
+  let resultados = inventario.bienes.buscar(criterio.toLowerCase(), valor);
 
   switch (orden) {
     case 'Nombre Ascendente':
-      resultados = inventario.ordenarBienesPorNombre(resultados, true);
+      resultados = inventario.bienes.ordenarPorNombre(resultados, true);
       break;
     case 'Nombre Descendente':
-      resultados = inventario.ordenarBienesPorNombre(resultados, false);
+      resultados = inventario.bienes.ordenarPorNombre(resultados, false);
       break;
     case 'Valor Ascendente':
-      resultados = inventario.ordenarBienesPorValor(resultados, true);
+      resultados = inventario.bienes.ordenarPorValor(resultados, true);
       break;
     case 'Valor Descendente':
-      resultados = inventario.ordenarBienesPorValor(resultados, false);
+      resultados = inventario.bienes.ordenarPorValor(resultados, false);
       break;
   }
 
-  resultados.forEach(b => b.print());
+  resultados.bienes.forEach(b => b.print());
   const { continuar } = await inquirer.prompt({
     type: 'confirm',
     name: 'continuar',
