@@ -1,0 +1,52 @@
+{
+  "bien": [
+    {
+      "id": 1,
+      "nombre": "Espada",
+      "descripcion": "",
+      "material": "Acero de Mahakam",
+      "peso": 100,
+      "valor": 500
+    },
+    {
+      "id": 2,
+      "nombre": "Pala",
+      "descripcion": "",
+      "material": "Cuero endurecido",
+      "peso": 10,
+      "valor": 100
+    },
+    {
+      "id": 3,
+      "nombre": "Pico",
+      "descripcion": "",
+      "material": "Esencia magica",
+      "peso": 200,
+      "valor": 200
+    },
+    {
+      "id": 5,
+      "nombre": "Hacha",
+      "descripcion": "",
+      "material": "Acero de Mahakam",
+      "peso": 10,
+      "valor": 200
+    },
+    {
+      "id": 6,
+      "nombre": "Casco",
+      "descripcion": "",
+      "material": "Cuero endurecido",
+      "peso": 200,
+      "valor": 500
+    },
+    {
+      "id": 4,
+      "nombre": "Hola",
+      "descripcion": "Prueba",
+      "material": "2",
+      "peso": 5,
+      "valor": 10
+    }
+  ]
+}

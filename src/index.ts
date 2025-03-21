@@ -1,12 +1,13 @@
 import inquirer from 'inquirer';
 import { Inventario } from './inventario.js';
 import { Bien } from './bien.js';
-import { ColeccionBienes } from './coleccionBienes.js';
+import { ColeccionBienes, JsonColeccionBienes } from './coleccionBienes.js';
 import { Cliente } from './cliente.js';
 import { ColeccionClientes } from './coleccionClientes.js';
 import { Mercader } from './mercader.js';
 import { ColeccionMercaderes } from './coleccionMercaderes.js';
-import { ColeccionTransacciones, Transaccion } from './transaccion.js';
+import { Transaccion } from './transaccion.js';
+import { ColeccionTransacciones } from './coleccionTransacciones.js';
 import * as menu from './menu.js';
 
 // Datos iniciales
@@ -31,7 +32,7 @@ const declaracionBienes = [
     new Mercader(3, 'Jose', 'Herrero', 'Velen')
   ];
   
-  let bienes = new ColeccionBienes(declaracionBienes);
+  let bienes = new JsonColeccionBienes(declaracionBienes);
   let clientes = new ColeccionClientes(declaracionClientes);
   let mercaderes = new ColeccionMercaderes(declaracionMercaderes);
   

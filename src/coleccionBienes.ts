@@ -1,4 +1,5 @@
 import { Bien, Material } from './bien.js';
+import { JSONFile, Low } from 'lowdb';
 
 /**
  * Clase que representa una coleccion de Bienes
@@ -129,5 +130,81 @@ export class ColeccionBienes {
       Peso: b.peso,
       Valor: b.valor
     })));
+  }
+}
+
+type JsonBienes = {
+  bien: {
+    id: number,
+    nombre: string,
+    descripcion: string,
+    material: Material,
+    peso: number,
+    valor: number
+  }[];
+};
+
+export class JsonColeccionBienes extends ColeccionBienes {
+
+  private bienesDatabase: Low<JsonBienes>;
+
+  constructor(bienes: Bien[]) {
+    super();
+    const adapter = new JSONFile<JsonBienes>('bienes.json');
+    this.bienesDatabase = new Low(adapter);
+    this.initialize(bienes);
+  }
+
+  private async initialize(bienes: Bien[]) {
+
+    await this.bienesDatabase.read();
+
+    // Validar si los datos son válidos
+    if (!this.bienesDatabase.data) {
+      this.bienesDatabase.data = { bien: bienes };
+      await this.bienesDatabase.write();
+    } else {
+
+      // Validar cada objeto en la base de datos
+      this.bienesDatabase.data.bien.forEach((bien) => {
+        if (bien.id && bien.nombre && bien.descripcion && bien.material && bien.peso && bien.valor) {
+          this.bienes.push(
+            new Bien(bien.id, bien.nombre, bien.descripcion, bien.material, bien.peso, bien.valor)
+          );
+        }
+      });
+    }
+
+    if (this.bienes.length === 0) {
+      this.bienes = bienes;
+      this.actualizarBase();
+    }
+  }
+
+  añadir(bien: Bien) {
+    super.añadir(bien);
+    this.actualizarBase(); 
+  }
+
+  modificar(id: number, campo: string, valor: string) {
+    super.modificar(id, campo, valor);
+    this.actualizarBase(); 
+  }
+
+  eliminar(id: number) {
+    super.eliminar(id);
+    this.actualizarBase(); 
+  }
+
+  private actualizarBase() {
+    this.bienesDatabase.data!.bien = this.bienes.map(bien => ({
+      id: bien.id,
+      nombre: bien.nombre,
+      descripcion: bien.descripcion,
+      material: bien.material,
+      peso: bien.peso,
+      valor: bien.valor,
+    }));
+    this.bienesDatabase.write();
   }
 }

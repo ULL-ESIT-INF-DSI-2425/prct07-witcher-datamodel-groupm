@@ -6,7 +6,8 @@ import { Cliente } from './cliente.js';
 import { ColeccionClientes } from './coleccionClientes.js';
 import { Mercader } from './mercader.js';
 import { ColeccionMercaderes } from './coleccionMercaderes.js';
-import { ColeccionTransacciones, Transaccion } from './transaccion.js';
+import { Transaccion } from './transaccion.js';
+import { ColeccionTransacciones } from './coleccionTransacciones.js';
 
 // Enumeraciones para los comandos y tipos de entidades
 /**
