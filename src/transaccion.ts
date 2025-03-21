@@ -6,7 +6,7 @@ import { Bien } from "./bien.js";
  * Clase Transaccion  
  */
 export class Transaccion {
-  accessor id: string;
+  accessor id: number;
   accessor fecha: Date;
   accessor tipo: 'compra' | 'venta' | 'devolucion';
   accessor bienes: Bien[];
@@ -23,7 +23,7 @@ export class Transaccion {
    * @param cliente - Cliente
    * @param mercader - Mercader
    */
-  constructor(id: string, tipo: 'compra' | 'venta' | 'devolucion', bienes: Bien[], monto: number, cliente: Cliente, mercader: Mercader) {
+  constructor(id: number, tipo: 'compra' | 'venta' | 'devolucion', bienes: Bien[], monto: number, cliente: Cliente, mercader: Mercader) {
     this.id = id;
     this.fecha = new Date(); // Fecha actual
     this.tipo = tipo;
@@ -46,5 +46,29 @@ export class Transaccion {
       Cliente: ${this.cliente.nombre}'}
       Mercader: ${this.mercader.nombre}'}`
     );
+  }
+}
+
+/**
+ * Clase que representa una coleccion de Transacciones
+ */
+export class ColeccionTransacciones {
+  accessor transacciones: Transaccion[];
+
+  constructor(transacciones: Transaccion[] = []) {
+    this.transacciones = transacciones;
+  }
+
+  añadir(transaccion: Transaccion): void {
+    const id = this.transacciones.findIndex(t => t.id === transaccion.id);
+    if (id !== -1) {
+      throw new Error(`Transacción con ID ${transaccion.id} ya existe.`);
+    }
+    this.transacciones.push(transaccion);
+  }
+
+  registrar(id: number, tipo: 'compra' | 'venta' | 'devolucion', bienes: Bien[], monto: number, cliente: Cliente, mercader: Mercader): void {
+    const transaccion = new Transaccion(id, tipo, bienes, monto, cliente, mercader);
+    this.añadir(transaccion);
   }
 }

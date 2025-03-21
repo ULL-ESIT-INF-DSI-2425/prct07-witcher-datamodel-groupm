@@ -108,8 +108,10 @@ export class ColeccionClientes {
    * @param busqueda - Valor a buscar
    * @returns ColeccionClientes
    */
-  buscar(campo: "Raza" | "Nombre" | "Lugar", busqueda: string): ColeccionClientes {
+  buscar(campo: "ID" | "Raza" | "Nombre" | "Lugar", busqueda: string): ColeccionClientes {
     switch (campo) {
+      case "ID":
+        return new ColeccionClientes(this.clientes.filter(c => c.id.toString() === busqueda));
       case "Nombre":
         return new ColeccionClientes(this.clientes.filter(c => c.nombre.includes(busqueda)));
       case "Raza":

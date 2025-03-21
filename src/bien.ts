@@ -117,8 +117,10 @@ export class ColeccionBienes {
    * @param criterio - Criterio de busqueda
    * @param valor - Valor a buscar
    */
-  buscar(criterio: 'nombre' | 'descripcion' | 'material', valor: string) {
+  buscar(criterio: 'ID' | 'nombre' | 'descripcion' | 'material', valor: string) {
     switch (criterio) {
+      case 'ID':
+        return new ColeccionBienes(this.bienes.filter(b => b.id === Number(valor)));
       case 'nombre':
         return new ColeccionBienes(this.bienes.filter(b => b.nombre.includes(valor)));
       case 'descripcion':

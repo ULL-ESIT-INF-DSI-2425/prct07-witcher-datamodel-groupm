@@ -114,8 +114,10 @@ export class ColeccionMercaderes {
    * @param busqueda - Valor a buscar
    * @returns ColeccionMercaderes
    */
-  buscar(campo: "Profesion" | "Nombre" | "Lugar", busqueda: string): ColeccionMercaderes {
+  buscar(campo: "ID" | "Profesion" | "Nombre" | "Lugar", busqueda: string): ColeccionMercaderes {
     switch (campo) {
+      case "ID":
+        return new ColeccionMercaderes(this.mercaderes.filter(c => c.id.toString().includes(busqueda)));
       case "Nombre":
         return new ColeccionMercaderes(this.mercaderes.filter(c => c.nombre.includes(busqueda)));
       case "Profesion":
