@@ -1,8 +1,11 @@
 import inquirer from 'inquirer';
 import { Inventario } from './inventario.js';
-import { ColeccionBienes, Bien } from './bien.js';
-import { ColeccionClientes, Cliente } from './cliente.js';
-import { ColeccionMercaderes, Mercader } from './mercader.js';
+import { Bien } from './bien.js';
+import { ColeccionBienes } from './coleccionBienes.js';
+import { Cliente } from './cliente.js';
+import { ColeccionClientes } from './coleccionClientes.js';
+import { Mercader } from './mercader.js';
+import { ColeccionMercaderes } from './coleccionMercaderes.js';
 import { ColeccionTransacciones, Transaccion } from './transaccion.js';
 
 // Enumeraciones para los comandos y tipos de entidades
@@ -29,8 +32,11 @@ enum Entidades {
   MERCADER = 'Mercader'
 }
 
-// Función principal
-async function promptUser() {
+/**
+ * Funcion principal para mostrar el menú
+ * @returns void
+ */
+export async function promptUser(inventario: Inventario) {
   console.log(`La Posada del Lobo Blanco\n`);
 
   inventario.print();
@@ -44,35 +50,38 @@ async function promptUser() {
 
   switch (comando) {
     case Comandos.ADD:
-      await promptAgregar();
+      await promptAgregar(inventario);
       break;
     case Comandos.REMOVE:
-      await promptEliminar();
+      await promptEliminar(inventario);
       break;
     case Comandos.MODIFY:
-      await promptModificar();
+      await promptModificar(inventario);
       break;
     case Comandos.BUSCAR_BIEN:
-      await promptBuscarBien();
+      await promptBuscarBien(inventario);
       break;
     case Comandos.LOCALIZAR:
-      await promptLocalizar();
+      await promptLocalizar(inventario);
       break;
     case Comandos.REGISTRAR_TRANSACCION:
-      await promptRegistrarTransaccion();
+      await promptRegistrarTransaccion(inventario);
       break;
     case Comandos.GENERAR_INFORME:
-      await promptGenerarInforme();
+      await promptGenerarInforme(inventario);
       break;
     case Comandos.QUIT:
       console.log('¡Adiós!');
       return;
   }
-
-  promptUser(); // Volver al menú principal
+  promptUser(inventario); // Volver al menú principal
 }
 
-async function continuar() {
+/**
+ * Funcion que pregunta al usuario si desea continuar
+ * @returns void
+ */
+async function continuar(inventario: Inventario) {
   // Mensaje de confirmación para continuar
   const { continuar } = await inquirer.prompt({
     type: 'confirm',
@@ -88,11 +97,15 @@ async function continuar() {
 
   // Limpiar la consola y mostrar el menú principal
   console.clear();
-  promptUser();
+  promptUser(inventario);
 }
 
-// Función para agregar entidades
-async function promptAgregar() {
+
+/**
+ * Función para agregar entidades (Bien, Cliente, Mercader)
+ * @returns void
+ */
+async function promptAgregar(inventario: Inventario) {
   console.clear();
   console.log(`Agregar\n`);
 
@@ -103,29 +116,127 @@ async function promptAgregar() {
     choices: Object.values(Entidades),
   });
 
-  const { datos } = await inquirer.prompt({
-    type: 'input',
-    name: 'datos',
-    message: `Ingrese los datos del ${entidad} <ID-Nombre-Descripcion-Material-Peso-Valor>: `,
-  });
-
-  if (datos) {
-    switch (entidad) {
-      case Entidades.BIEN:
-        inventario.bienes.añadir(datos);
-        break;
-      case Entidades.CLIENTE:
-        inventario.clientes.añadir(datos);
-        break;
-      case Entidades.MERCADER:
-        inventario.mercaderes.añadir(datos);
-        break;
-    }
+  switch (entidad) {
+    case Entidades.BIEN:
+      await promptAgregarBien(inventario);
+      break;
+    case Entidades.CLIENTE:
+      await promptAgregarCliente(inventario);
+      break;
+    case Entidades.MERCADER:
+      await promptAgregarMercader(inventario);
+      break;
   }
 }
 
-// Función para eliminar entidades
-async function promptEliminar() {
+/**
+ * Función para agregar un bien
+ */
+async function promptAgregarBien(inventario: Inventario) {
+  const { id, nombre, descripcion, material, peso, valor } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'id',
+      message: `Ingrese el ID: `,
+    },
+    {
+      type: 'input',
+      name: 'nombre',
+      message: `Ingrese el nombre: `,
+    },
+    {
+      type: 'input',
+      name: 'descripcion',
+      message: `Ingrese la descripción: `,
+    },
+    {
+      type: 'input',
+      name: 'material',
+      message: `Ingrese el material: `,
+    },
+    {
+      type: 'input',
+      name: 'peso',
+      message: `Ingrese el peso: `,
+    },
+    {
+      type: 'input',
+      name: 'valor',
+      message: `Ingrese el valor: `,
+    },
+  ]);
+  inventario.bienes.añadir(new Bien(Number(id), nombre, descripcion, material, Number(peso), Number(valor)));
+  console.clear();
+  promptUser(inventario);
+}
+
+/**
+ * Función para agregar un cliente
+ */
+async function promptAgregarCliente(inventario: Inventario) {
+  const { id, nombre, raza, lugar } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'id',
+      message: `Ingrese el ID: `,
+    },
+    {
+      type: 'input',
+      name: 'nombre',
+      message: `Ingrese el nombre: `,
+    },
+    {
+      type: 'input',
+      name: 'raza',
+      message: `Ingrese la raza: `,
+    },
+    {
+      type: 'input',
+      name: 'lugar',
+      message: `Ingrese el lugar: `,
+    },
+  ]);
+  inventario.clientes.añadir(new Cliente(Number(id), nombre, raza, lugar));
+  console.clear();
+  promptUser(inventario);
+}
+
+/**
+ * Función para agregar un mercader
+ */
+async function promptAgregarMercader(inventario: Inventario) {
+  const { id, nombre, profesion, lugar } = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'id',
+      message: `Ingrese el ID: `,
+    },
+    {
+      type: 'input',
+      name: 'nombre',
+      message: `Ingrese el nombre: `,
+    },
+    {
+      type: 'input',
+      name: 'profesion',
+      message: `Ingrese la profesión: `,
+    },
+    {
+      type: 'input',
+      name: 'lugar',
+      message: `Ingrese el lugar: `,
+    },
+  ]);
+  inventario.mercaderes.añadir(new Mercader(Number(id), nombre, profesion, lugar));
+  console.clear();
+  promptUser(inventario);
+}
+
+/**
+ * Función para eliminar entidades (Bien, Cliente, Mercader)
+ * @returns void
+ */
+async function promptEliminar(inventario: Inventario) {
   console.clear();
   console.log(`Eliminar\n`);
 
@@ -169,8 +280,10 @@ async function promptEliminar() {
   }
 }
 
-// Función para modificar entidades
-async function promptModificar() {
+/**
+ * Función para modificar entidades (Bien, Cliente, Mercader)
+ */
+async function promptModificar(inventario: Inventario) {
   console.clear();
   console.log(`Modificar\n`);
 
@@ -180,6 +293,18 @@ async function promptModificar() {
     message: 'Seleccione qué desea modificar',
     choices: Object.values(Entidades),
   });
+
+  switch (entidad) {
+    case Entidades.BIEN:
+      inventario.bienes.print();
+      break;
+    case Entidades.CLIENTE:
+      inventario.clientes.print();
+      break;
+    case Entidades.MERCADER:
+      inventario.mercaderes.print();
+      break;
+  }
 
   const { id, campo, valor } = await inquirer.prompt([
     {
@@ -200,21 +325,26 @@ async function promptModificar() {
   ]);
 
   if (id && campo && valor) {
+    let aux = String(campo).toLowerCase();
     switch (entidad) {
       case Entidades.BIEN:
-        inventario.bienes.modificar(Number(id), String(campo), String(valor));
+        inventario.bienes.modificar(Number(id), aux, String(valor));
         break;
       case Entidades.CLIENTE:
-        inventario.clientes.modificar(Number(id), String(campo), String(valor));
+        inventario.clientes.modificar(Number(id), aux, String(valor));
         break;
       case Entidades.MERCADER:
-        inventario.mercaderes.modificar(Number(id), String(campo), String(valor));
+        inventario.mercaderes.modificar(Number(id), aux, String(valor));
         break;
     }
   }
 }
 
-async function promptBuscarBien() {
+/**
+ * Función para buscar un bien
+ * @returns void
+ */
+async function promptBuscarBien(inventario: Inventario) {
   console.clear();
   console.log(`Buscar Bien\n`);
 
@@ -258,10 +388,14 @@ async function promptBuscarBien() {
 
   resultados.bienes.forEach(b => b.print());
 
-  await continuar();
+  await continuar(inventario);
 }
 
-async function promptLocalizar() {
+/**
+ * Función para localizar un mercader o cliente
+ * @returns void
+ */
+async function promptLocalizar(inventario: Inventario) {
   console.clear();
   console.log(`Buscar Bien\n`);
 
@@ -308,10 +442,15 @@ async function promptLocalizar() {
   }
   resultados.print();
 
-  await continuar();
+  await continuar(inventario);
 }
 
-async function promptRegistrarTransaccion() {
+/**
+ * Funcion para registrar una transacción
+ * 
+ * @returns void
+ */
+async function promptRegistrarTransaccion(inventario: Inventario) {
   console.log(`Registrar Transacción\n`);
   console.clear();
   inventario.bienes.print();
@@ -369,10 +508,13 @@ async function promptRegistrarTransaccion() {
   inventario.transacciones.añadir(new Transaccion(id, tipo, buscarBienes, Number(monto), buscarCliente.clientes[0], buscarMercader.mercaderes[0]));
   console.log('Transacción registrada.');
 
-  await continuar();
+  await continuar(inventario);
 }
 
-async function promptGenerarInforme() {
+/**
+ * Funcion para generar un informe
+ */
+async function promptGenerarInforme(inventario: Inventario) {
 
   // Preguntamos el tipo de informe
   console.clear();
@@ -455,36 +597,5 @@ async function promptGenerarInforme() {
     }
   }
 
-  await continuar();
+  await continuar(inventario);
 }
-
-// Datos iniciales
-const declaracionBienes = [
-  new Bien(1, 'Espada', '', 'Acero de Mahakam', 100, 500),
-  new Bien(2, 'Pala', '', 'Cuero endurecido', 10, 100),
-  new Bien(3, 'Pico', '', 'Esencia magica', 200, 200),
-  new Bien(4, 'Azada', '', 'Acero de Mahakam', 10, 100),
-  new Bien(5, 'Hacha', '', 'Acero de Mahakam', 10, 200),
-  new Bien(6, 'Casco', '', 'Cuero endurecido', 200, 500),
-];
-
-const declaracionClientes = [
-  new Cliente(1, 'Geralt', 'Humano', 'Novigrado'),
-  new Cliente(2, 'Daniel', 'Elfo', 'Novigrado'),
-  new Cliente(3, 'Jose', 'Humano', 'Velen')
-];
-
-const declaracionMercaderes = [
-  new Mercader(1, 'Geralt', 'Herrero', 'Novigrado'),
-  new Mercader(2, 'Daniel', 'Alquimista', 'Novigrado'),
-  new Mercader(3, 'Jose', 'Herrero', 'Velen')
-];
-
-let bienes = new ColeccionBienes(declaracionBienes);
-let clientes = new ColeccionClientes(declaracionClientes);
-let mercaderes = new ColeccionMercaderes(declaracionMercaderes);
-
-let inventario = new Inventario(bienes, mercaderes, clientes);
-
-// Iniciar la aplicación
-promptUser();

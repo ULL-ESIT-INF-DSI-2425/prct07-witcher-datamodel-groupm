@@ -1,6 +1,9 @@
-import { ColeccionBienes, Bien } from './bien.js';
-import { ColeccionClientes, Cliente } from './cliente.js';
-import { ColeccionMercaderes, Mercader } from './mercader.js'
+import { Bien } from './bien.js';
+import { ColeccionBienes } from './coleccionBienes.js';
+import { Cliente } from './cliente.js';
+import { ColeccionClientes } from './coleccionClientes.js';
+import { Mercader } from './mercader.js'
+import { ColeccionMercaderes } from './coleccionMercaderes.js';
 import { ColeccionTransacciones, Transaccion } from './transaccion.js';
 
 /**

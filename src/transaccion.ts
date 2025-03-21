@@ -1,6 +1,7 @@
 import { Cliente } from "./cliente.js";
 import { Mercader } from "./mercader.js";
-import { Bien, ColeccionBienes } from "./bien.js";
+import { Bien } from "./bien.js";
+
 
 /**
  * Clase Transaccion  
