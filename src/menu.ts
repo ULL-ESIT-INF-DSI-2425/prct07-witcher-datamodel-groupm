@@ -3,32 +3,7 @@ import { Inventario } from './inventario.js';
 import { ColeccionBienes, Bien } from './bien.js';
 import { ColeccionClientes, Cliente } from './cliente.js';
 import { ColeccionMercaderes, Mercader } from './mercader.js';
-import { Transaccion } from './transaccion.js';
-
-// Datos iniciales
-const declaracionBienes = [
-  new Bien(1, 'Espada', '', 'Acero de Mahakam', 100, 500),
-  new Bien(2, 'Pala', '', 'Cuero endurecido', 10, 100),
-  new Bien(3, 'Pico', '', 'Esencia magica', 200, 200)
-];
-
-const declaracionClientes = [
-  new Cliente(1, 'Geralt', 'Humano', 'Novigrado'),
-  new Cliente(2, 'Daniel', 'Elfo', 'Novigrado'),
-  new Cliente(3, 'Jose', 'Humano', 'Velen')
-];
-
-const declaracionMercaderes = [
-  new Mercader(1, 'Geralt', 'Herrero', 'Novigrado'),
-  new Mercader(2, 'Daniel', 'Alquimista', 'Novigrado'),
-  new Mercader(3, 'Jose', 'Herrero', 'Velen')
-];
-
-let bienes = new ColeccionBienes(declaracionBienes);
-let clientes = new ColeccionClientes(declaracionClientes);
-let mercaderes = new ColeccionMercaderes(declaracionMercaderes);
-
-let inventario = new Inventario(bienes, mercaderes, clientes);
+import { ColeccionTransacciones, Transaccion } from './transaccion.js';
 
 // Enumeraciones para los comandos y tipos de entidades
 /**
@@ -40,8 +15,8 @@ enum Comandos {
   MODIFY = 'Modificar',
   BUSCAR_BIEN = 'Buscar bien',
   LOCALIZAR = 'Localizar',
-  BUSCAR_STOCK = 'Buscar stock',
   REGISTRAR_TRANSACCION = 'Registrar transacción',
+  GENERAR_INFORME = 'Generar informe',
   QUIT = 'Salir'
 }
 
@@ -58,10 +33,7 @@ enum Entidades {
 async function promptUser() {
   console.log(`La Posada del Lobo Blanco\n`);
 
-  inventario.printBienes();
-  inventario.printClientes();
-  inventario.printMercaderes();
-  inventario.printTransacciones();
+  inventario.print();
 
   const { comando } = await inquirer.prompt({
     type: 'list',
@@ -86,11 +58,11 @@ async function promptUser() {
     case Comandos.LOCALIZAR:
       await promptLocalizar();
       break;
-    case Comandos.BUSCAR_STOCK:
-      await promptBuscarStock();
-      break;
     case Comandos.REGISTRAR_TRANSACCION:
       await promptRegistrarTransaccion();
+      break;
+    case Comandos.GENERAR_INFORME:
+      await promptGenerarInforme();
       break;
     case Comandos.QUIT:
       console.log('¡Adiós!');
@@ -98,6 +70,25 @@ async function promptUser() {
   }
 
   promptUser(); // Volver al menú principal
+}
+
+async function continuar() {
+  // Mensaje de confirmación para continuar
+  const { continuar } = await inquirer.prompt({
+    type: 'confirm',
+    name: 'continuar',
+    message: '¿Deseas continuar?',
+  });
+
+  // Si no desea continuar
+  if (!continuar) {
+    console.log('¡Adiós!');
+    process.exit(0);
+  }
+
+  // Limpiar la consola y mostrar el menú principal
+  console.clear();
+  promptUser();
 }
 
 // Función para agregar entidades
@@ -147,13 +138,13 @@ async function promptEliminar() {
 
   switch (entidad) {
     case Entidades.BIEN:
-      inventario.printBienes();
+      inventario.bienes.print();
       break;
     case Entidades.CLIENTE:
-      inventario.printClientes();
+      inventario.clientes.print();
       break;
     case Entidades.MERCADER:
-      inventario.printMercaderes();
+      inventario.mercaderes.print();
       break;
   }
 
@@ -266,18 +257,8 @@ async function promptBuscarBien() {
   }
 
   resultados.bienes.forEach(b => b.print());
-  const { continuar } = await inquirer.prompt({
-    type: 'confirm',
-    name: 'continuar',
-    message: '¿Deseas continuar?',
-  });
 
-  if (!continuar) {
-    console.log('¡Adiós!');
-    return;
-  }
-  console.clear();
-  promptUser();
+  await continuar();
 }
 
 async function promptLocalizar() {
@@ -326,61 +307,16 @@ async function promptLocalizar() {
     resultados = inventario.clientes.buscar(campo, entrada);
   }
   resultados.print();
-  const { continuar } = await inquirer.prompt({
-    type: 'confirm',
-    name: 'continuar',
-    message: '¿Deseas continuar?',
-  });
-  if (!continuar) {
-    console.log('¡Adiós!');
-    return;
-  }
-  console.clear();
-  promptUser();
-}
 
-async function promptBuscarStock() {
-  console.clear();
-  console.log(`Buscar Stock\n`);
-  inventario.printBienes();
-  const { campo, entrada } = await inquirer.prompt([   
-    {
-      type: 'list',
-      name: 'campo',
-      message: 'Seleccione el campo de búsqueda',
-      choices: ['ID', 'nombre', 'descripcion', 'material'],
-    },
-    {
-      type: 'input',
-      name: 'entrada',
-      message: `Ingrese el valor de búsqueda: `,
-    }
-  ]);
-  const stock = inventario.stock(campo, entrada);
-  if (stock === 0) {
-    console.log('No hay disponibles.');
-  } else {
-    console.log(`Hay ${stock} disponibles.`);
-  }
-  const { continuar } = await inquirer.prompt({
-    type: 'confirm',
-    name: 'continuar',
-    message: '¿Deseas continuar?',
-  });
-  if (!continuar) {
-    console.log('¡Adiós!');
-    return;
-  }
-  console.clear();
-  promptUser();
+  await continuar();
 }
 
 async function promptRegistrarTransaccion() {
   console.log(`Registrar Transacción\n`);
   console.clear();
-  inventario.printBienes();
-  inventario.printClientes();
-  inventario.printMercaderes();
+  inventario.bienes.print();
+  inventario.clientes.print();
+  inventario.mercaderes.print();
   const { id, tipo, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {
       type: 'input',
@@ -430,20 +366,125 @@ async function promptRegistrarTransaccion() {
     console.log('Bienes no encontrados.');
     return;
   }
-  inventario.registrarTransaccion(new Transaccion(id, tipo, buscarBienes, Number(monto), buscarCliente.clientes[0], buscarMercader.mercaderes[0]));
+  inventario.transacciones.añadir(new Transaccion(id, tipo, buscarBienes, Number(monto), buscarCliente.clientes[0], buscarMercader.mercaderes[0]));
   console.log('Transacción registrada.');
-  const { continuar } = await inquirer.prompt({
-    type: 'confirm',
-    name: 'continuar',
-    message: '¿Deseas continuar?',
-  });
-  if (!continuar) {
-    console.log('¡Adiós!');
-    return;
-  }
-  console.clear();
-  promptUser();
+
+  await continuar();
 }
+
+async function promptGenerarInforme() {
+
+  // Preguntamos el tipo de informe
+  console.clear();
+  console.log(`Generar Informe\n`);
+  const { tipo } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'tipo',
+      message: 'Que tipo de informe quiere generar?',
+      choices: ['Stock de bienes', 'Bienes demandados', 'Ingresos/gastos', 'Historial de transacciones'],
+    },
+  ]);
+
+  switch (tipo) {
+    
+    case 'Stock de bienes': {
+      inventario.bienes.print();
+      console.log('Stock de bienes');
+
+      // Preguntamos por el campo de búsqueda
+      const { campo, entrada } = await inquirer.prompt([   
+        {
+          type: 'list',
+          name: 'campo',
+          message: 'Seleccione el campo de búsqueda',
+          choices: ['nombre', 'material', 'peso', 'valor'],
+        },
+        {
+          type: 'input',
+          name: 'entrada',
+          message: `Ingrese el valor de búsqueda: `,
+        }
+      ]);
+
+      // Mostramos el stock disponible
+      const stock = inventario.bienes.buscar(campo, entrada);
+      if (stock.bienes.length === 0) {
+        console.log('No hay disponibles.');
+      } else {
+        console.log(`Hay ${stock.bienes.length} articulos disponibles con esas carácteristicas.`);
+        stock.print();
+      }
+      break;
+    }
+
+    case 'Bienes demandados':
+
+    // Imprimimos la lista ordenada de los bienes más demandados
+      console.log('Lista ordenada de los bienes más demandados');
+      inventario.transacciones.bienesDemandados().forEach((cantidad, nombre) => {
+        console.log(`Nombre del bien: ${nombre}, Cantidad: ${cantidad}`);
+      });
+      break;
+
+    case 'Ingresos/gastos':
+      console.log('Ingresos/gastos');
+      break;
+
+    case 'Historial de transacciones': {
+      inventario.clientes.print();
+      inventario.mercaderes.print();
+
+      // Preguntamos por el ID de la persona
+      const { id } = await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'id',
+          message: `Ingrese el ID del mercader/cliente:`,
+        },
+      ]);
+
+      // Mostramos las transacciones de la persona
+      const transacciones: ColeccionTransacciones = inventario.transacciones.buscarPorPersonaID(Number(id));
+      if (transacciones.transacciones.length > 0) {
+        transacciones.print();
+      } else {
+        console.log('No se encontraron transacciones para el ID proporcionado.');
+      }
+      break;
+    }
+  }
+
+  await continuar();
+}
+
+// Datos iniciales
+const declaracionBienes = [
+  new Bien(1, 'Espada', '', 'Acero de Mahakam', 100, 500),
+  new Bien(2, 'Pala', '', 'Cuero endurecido', 10, 100),
+  new Bien(3, 'Pico', '', 'Esencia magica', 200, 200),
+  new Bien(4, 'Azada', '', 'Acero de Mahakam', 10, 100),
+  new Bien(5, 'Hacha', '', 'Acero de Mahakam', 10, 200),
+  new Bien(6, 'Casco', '', 'Cuero endurecido', 200, 500),
+];
+
+const declaracionClientes = [
+  new Cliente(1, 'Geralt', 'Humano', 'Novigrado'),
+  new Cliente(2, 'Daniel', 'Elfo', 'Novigrado'),
+  new Cliente(3, 'Jose', 'Humano', 'Velen')
+];
+
+const declaracionMercaderes = [
+  new Mercader(1, 'Geralt', 'Herrero', 'Novigrado'),
+  new Mercader(2, 'Daniel', 'Alquimista', 'Novigrado'),
+  new Mercader(3, 'Jose', 'Herrero', 'Velen')
+];
+
+let bienes = new ColeccionBienes(declaracionBienes);
+let clientes = new ColeccionClientes(declaracionClientes);
+let mercaderes = new ColeccionMercaderes(declaracionMercaderes);
+
+let inventario = new Inventario(bienes, mercaderes, clientes);
 
 // Iniciar la aplicación
 promptUser();

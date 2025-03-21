@@ -130,9 +130,14 @@ export class ColeccionMercaderes {
   }
 
   /**
-   * Método para imprimir la información de todos los mercaderes en la colección
+   * Método para imprimir la información de los mercaderes
    */
-  print(): void {
-    this.mercaderes.forEach(mercader => mercader.print());
+  print() {
+    console.table(this.mercaderes.map(m => ({
+      ID: m.id,
+      Nombre: m.nombre,
+      Profesion: m.profesion,
+      Lugar: m.lugar
+    })));
   }
 }

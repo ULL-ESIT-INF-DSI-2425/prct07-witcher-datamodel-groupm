@@ -117,7 +117,7 @@ export class ColeccionBienes {
    * @param criterio - Criterio de busqueda
    * @param valor - Valor a buscar
    */
-  buscar(criterio: 'ID' | 'nombre' | 'descripcion' | 'material', valor: string) {
+  buscar(criterio: 'ID' | 'nombre' | 'descripcion' | 'material' | 'peso' | 'valor', valor: string): ColeccionBienes {
     switch (criterio) {
       case 'ID':
         return new ColeccionBienes(this.bienes.filter(b => b.id === Number(valor)));
@@ -127,6 +127,10 @@ export class ColeccionBienes {
         return new ColeccionBienes(this.bienes.filter(b => b.descripcion.includes(valor)));
       case 'material':
         return new ColeccionBienes(this.bienes.filter(b => b.material === valor as Material));
+      case 'peso':
+        return new ColeccionBienes(this.bienes.filter(b => b.peso === Number(valor)));
+      case 'valor':
+        return new ColeccionBienes(this.bienes.filter(b => b.valor === Number(valor)));
       default:
         throw new Error(`Criterio ${criterio} no es válido.`);
     }
@@ -154,5 +158,19 @@ export class ColeccionBienes {
    */
   ordenarPorValor(bienes: ColeccionBienes, ascendente: boolean = true): ColeccionBienes {
     return new ColeccionBienes(bienes.bienes.sort((a, b) => ascendente ? a.valor - b.valor : b.valor - a.valor));
+  }
+
+  /**
+   * Método para imprimir la información de los bienes
+   */
+  print() {
+    console.table(this.bienes.map(b => ({
+      ID: b.id,
+      Nombre: b.nombre,
+      Descripción: b.descripcion,
+      Material: b.material,
+      Peso: b.peso,
+      Valor: b.valor
+    })));
   }
 }

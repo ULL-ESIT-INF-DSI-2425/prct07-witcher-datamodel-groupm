@@ -124,10 +124,15 @@ export class ColeccionClientes {
   }
 
   /**
-   * Método para imprimir la información de todos los clientes en la colección
+   * Método para imprimir la información de los clientes
    */
-  print(): void {
-    this.clientes.forEach(cliente => cliente.print());
+  print() {
+    console.table(this.clientes.map(c => ({
+      ID: c.id,
+      Nombre: c.nombre,
+      Raza: c.raza,
+      Lugar: c.lugar
+    })));
   }
 }
 
