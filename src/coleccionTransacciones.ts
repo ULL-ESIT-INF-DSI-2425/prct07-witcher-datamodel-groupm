@@ -49,6 +49,9 @@ export class ColeccionTransacciones {
    * @returns objeto de tipo Transaccion
    */
   buscarPorPersonaID(id: number): ColeccionTransacciones {
+    if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
+      throw new Error(`Transacción con ID ${id} no existe.`);
+    }
     return new ColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
   }
 
