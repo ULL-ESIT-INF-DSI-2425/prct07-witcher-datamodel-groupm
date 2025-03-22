@@ -1,8 +1,8 @@
 import { describe, test, expect, vi } from 'vitest';
-import { Transaccion } from '../src/transaccion';
-import { Bien, Material } from '../src/bien';
-import { Cliente, Raza } from '../src/cliente';
-import { Mercader, Profesion, Lugar } from '../src/mercader';
+import { Transaccion } from '../src/module/transaccion.js';
+import { Bien, Material } from '../src/module/bien.js';
+import { Cliente, Raza } from '../src/module/cliente.js';
+import { Mercader, Profesion, Lugar } from '../src/module/mercader.js';
 
 describe("Prueba de la clase que representa una Transaccion", () => {
   test("Crea una transaccion", () => {

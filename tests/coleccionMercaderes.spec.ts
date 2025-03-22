@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { Mercader } from '../src/mercader';
-import { ColeccionMercaderes } from '../src/coleccionMercaderes';
+import { Mercader } from '../src/module/mercader.js';
+import { ColeccionMercaderes } from '../src/coleccion/coleccionMercaderes.js';
 
 describe('ColeccionMercaderes', () => {
   let coleccion: ColeccionMercaderes;

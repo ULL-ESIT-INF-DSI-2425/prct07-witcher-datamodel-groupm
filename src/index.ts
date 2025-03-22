@@ -1,14 +1,14 @@
 import inquirer from 'inquirer';
-import { Inventario } from './inventario.js';
-import { Bien } from './bien.js';
-import { ColeccionBienes, JsonColeccionBienes } from './coleccionBienes.js';
-import { Cliente } from './cliente.js';
-import { ColeccionClientes, JsonColeccionClientes } from './coleccionClientes.js';
-import { Mercader } from './mercader.js';
-import { ColeccionMercaderes, JsonColeccionMercaderes } from './coleccionMercaderes.js';
-import { Transaccion } from './transaccion.js';
-import { ColeccionTransacciones, JsonColeccionTransacciones } from './coleccionTransacciones.js';
-import * as menu from './menu.js';
+import { Inventario } from './module/inventario.js';
+import { Bien } from './module/bien.js';
+import { JsonColeccionBienes } from './db/jsonColeccionBienes.js';
+import { Cliente } from './module/cliente.js';
+import { JsonColeccionClientes } from './db/jsonColeccionClientes.js';
+import { Mercader } from './module/mercader.js';
+import { JsonColeccionMercaderes } from './db/jsonColeccionMercaderes.js';
+import { Transaccion } from './module/transaccion.js';
+import { JsonColeccionTransacciones } from './db/jsonColeccionTransacciones.js';
+import { mainMenu } from './menu/mainMenu.js';
 
 // Datos iniciales
 const declaracionBienes = [
@@ -36,7 +36,8 @@ const declaracionBienes = [
   let clientes = new JsonColeccionClientes(declaracionClientes);
   let mercaderes = new JsonColeccionMercaderes(declaracionMercaderes);
   
-  let inventario = new Inventario(bienes, mercaderes, clientes);
+  // let inventario = new Inventario(bienes, mercaderes, clientes, new JsonColeccionTransacciones([]));
   
   // Iniciar la aplicación
-  menu.promptUser(inventario);
+  // menu.promptUser(inventario);
+  mainMenu();

@@ -1,21 +1,21 @@
 {
-  "cliente": []
+  "mercader": []
 }  {
       "id": 1,
       "nombre": "Geralt",
-      "raza": "Humano",
+      "profesion": "Herrero",
       "lugar": "Novigrado"
     },
     {
       "id": 2,
       "nombre": "Daniel",
-      "raza": "Elfo",
+      "profesion": "Alquimista",
       "lugar": "Novigrado"
     },
     {
       "id": 3,
       "nombre": "Jose",
-      "raza": "Humano",
+      "profesion": "Herrero",
       "lugar": "Velen"
     }
   ]

@@ -1,5 +1,5 @@
 import { test, expect, describe, vi } from 'vitest'
-import { Bien, Material } from '../src/bien'
+import { Bien, Material } from '../src/module/bien.js'
 
 describe("Prueba de la clase que representa un Bien", () => {
   test("Crea un bien", () => {

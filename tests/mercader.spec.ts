@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { Mercader, Profesion, Lugar } from '../src/mercader';
+import { Mercader, Profesion, Lugar } from '../src/module/mercader.js';
 
 describe('Mercader', () => {
     let mercader: Mercader;

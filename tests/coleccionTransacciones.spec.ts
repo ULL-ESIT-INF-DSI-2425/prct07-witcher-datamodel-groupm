@@ -1,9 +1,9 @@
 import { describe, it ,test, expect, beforeEach, vi } from 'vitest';
-import { Transaccion } from '../src/transaccion';
-import { Bien, Material } from '../src/bien';
-import { Cliente, Raza } from '../src/cliente';
-import { Mercader, Profesion, Lugar } from '../src/mercader';
-import { ColeccionTransacciones} from '../src/coleccionTransacciones';
+import { Transaccion } from '../src/module/transaccion.js';
+import { Bien, Material } from '../src/module/bien.js';
+import { Cliente, Raza } from '../src/module/cliente.js';
+import { Mercader, Profesion, Lugar } from '../src/module/mercader.js';
+import { ColeccionTransacciones} from '../src/coleccion/coleccionTransacciones.js';
 
 describe("Colección Transacciones", () => {
   let coleccion: ColeccionTransacciones;

@@ -1,6 +1,6 @@
 import { test, expect, describe, vi } from 'vitest'
-import { Bien, Material } from '../src/bien'
-import { ColeccionBienes } from '../src/coleccionBienes'
+import { Bien, Material } from '../src/module/bien.js'
+import { ColeccionBienes } from '../src/coleccion/coleccionBienes.js'
 
 describe("Prueba de la clase ColeccionBienes", () => {
   test("Añade un bien a la colección", () => {

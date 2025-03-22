@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { Cliente, Raza } from '../src/cliente';
-import { Lugar } from '../src/mercader';
+import { Cliente, Raza } from '../src/module/cliente.js';
+import { Lugar } from '../src/module/mercader.js';
 
 describe('Cliente', () => {
   let cliente: Cliente;
