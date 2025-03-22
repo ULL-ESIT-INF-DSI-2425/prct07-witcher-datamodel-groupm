@@ -1,4 +1,5 @@
 import { Mercader, Profesion, Lugar } from "./mercader.js";
+import { JSONFile, Low } from 'lowdb';
 
 /**
  * Clase que representa una coleccion de Mercaderes
@@ -94,5 +95,75 @@ export class ColeccionMercaderes {
       Profesion: m.profesion,
       Lugar: m.lugar
     })));
+  }
+}
+
+type JsonMercader = {
+  mercader: {
+    id: number;
+    nombre: string;
+    profesion: Profesion;
+    lugar: Lugar;
+  }[];
+};
+
+export class JsonColeccionMercaderes extends ColeccionMercaderes {
+  private mercaderesDatabase: Low<JsonMercader>;
+
+  constructor(mercaderes: Mercader[]) {
+    super(mercaderes);
+    const adapter = new JSONFile<JsonMercader>('mercaderes.json');
+    this.mercaderesDatabase = new Low(adapter);
+    this.initialize(mercaderes);
+  }
+
+  private async initialize(mercaderes: Mercader[]) {
+
+    await this.mercaderesDatabase.read();
+    
+    // Validar si los datos son válidos
+    if (!this.mercaderesDatabase.data) {
+      this.mercaderesDatabase.data = { mercader: mercaderes };
+      await this.mercaderesDatabase.write();
+    }
+    else {
+      // Validar cada objeto en la base de datos
+      this.mercaderesDatabase.data.mercader.forEach((mercader) => {
+        if (mercader.id && mercader.nombre && mercader.profesion && mercader.lugar) {
+          this.mercaderes.push(
+            new Mercader(mercader.id, mercader.nombre, mercader.profesion, mercader.lugar)
+          );
+        }
+      });
+    }
+    if (this.mercaderes.length === 0) {
+      // A diferencia de los bienes que se le puede pasar al constructor una lista de bienes vacía, en este caso no se puede
+      throw new Error("No hay mercaderes en la base de datos.");
+    }
+  }
+
+  añadir(mercader: Mercader) {
+    super.añadir(mercader);
+    this.actualizarBase();
+  }
+
+  eliminar(id: number) {
+    super.eliminar(id);
+    this.actualizarBase();
+  }
+
+  modificar(id: number, campo: string, valor: string) {
+    super.modificar(id, campo, valor);
+    this.actualizarBase();
+  }
+
+  private actualizarBase() {
+    this.mercaderesDatabase.data!.mercader = this.mercaderes.map(mercader => ({
+      id: mercader.id,
+      nombre: mercader.nombre,
+      profesion: mercader.profesion,
+      lugar: mercader.lugar
+    }));
+    this.mercaderesDatabase.write();
   }
 }

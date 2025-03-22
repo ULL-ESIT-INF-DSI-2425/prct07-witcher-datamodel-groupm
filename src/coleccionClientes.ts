@@ -1,5 +1,6 @@
 import { Cliente, Raza } from "./cliente.js";
 import { Lugar } from './mercader.js';
+import { JSONFile, Low } from 'lowdb';
 
 /**
  * Clase que representa una coleccion de Clientes
@@ -98,3 +99,71 @@ export class ColeccionClientes {
   }
 }
 
+type JSONClientes = {
+  cliente: {
+    id: number,
+    nombre: string,
+    raza: Raza,
+    lugar: Lugar
+  }[];
+};
+
+export class ColeccionClientesJSON extends ColeccionClientes {
+  private clientesDatabase: Low<JSONClientes>
+
+  constructor(clientes: Cliente[]) {
+    super(clientes);
+    const adapter = new JSONFile<JSONClientes>('clientes.json');
+    this.clientesDatabase = new Low(adapter);
+    this.initialize(clientes);
+  }
+
+  private async initialize(clientes: Cliente[]) {
+    await this.clientesDatabase.read();
+
+    // Validar si los datos son válidos
+    if (!this.clientesDatabase.data) {
+      this.clientesDatabase.data = { cliente: clientes };
+      await this.clientesDatabase.write();
+    }
+    else {
+      // Validar cada objeto en la base de datos
+      this.clientesDatabase.data.cliente.forEach((cliente) => {
+        if (cliente.id && cliente.nombre && cliente.raza && cliente.lugar) {
+          this.clientes.push(
+            new Cliente(cliente.id, cliente.nombre, cliente.raza, cliente.lugar)
+          );
+        }
+      });
+    }
+    if (this.clientes.length === 0) {
+      // A diferencia de los bienes que se le puede pasar al constructor una lista de bienes vacía, en este caso no se puede
+      throw new Error('No se ha podido cargar la base de datos de clientes');
+    }
+  }
+
+  añadir(cliente: Cliente) {
+    super.añadir(cliente);
+    this.actualizarBase();
+  }
+
+  eliminar(id: number) {
+    super.eliminar(id);
+    this.actualizarBase();
+  }
+
+  modificar(id: number, campo: string, valor: string) {
+    super.modificar(id, campo, valor);
+    this.actualizarBase();
+  }
+
+  private actualizarBase() {
+    this.clientesDatabase.data!.cliente = this.clientes.map(cliente => ({
+      id: cliente.id,
+      nombre: cliente.nombre,
+      raza: cliente.raza,
+      lugar: cliente.lugar
+    }));
+    this.clientesDatabase.write();
+  }
+}

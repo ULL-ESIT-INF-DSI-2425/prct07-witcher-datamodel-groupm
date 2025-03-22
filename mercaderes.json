@@ -1,0 +1,40 @@
+{
+  "mercader": [
+    {
+      "id": 1,
+      "nombre": "Juan",
+      "profesion": "Herrero",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 2,
+      "nombre": "Pedro",
+      "profesion": "Alquimista",
+      "lugar": "Dol Blathanna"
+    },
+    {
+      "id": 3,
+      "nombre": "Maria",
+      "profesion": "Mercader general",
+      "lugar": "Mahakam"
+    },
+    {
+      "id": 4,
+      "nombre": "Luis",
+      "profesion": "Mercader general",
+      "lugar": "Mahakam"
+    },
+    {
+      "id": 5,
+      "nombre": "Ana",
+      "profesion": "Alquimista",
+      "lugar": "Dol Blathanna"
+    },
+    {
+      "id": 6,
+      "nombre": "Jose",
+      "profesion": "Herrero",
+      "lugar": "Novigrado"
+    }
+  ]
+}

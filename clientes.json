@@ -1,0 +1,40 @@
+{
+  "cliente": [
+    {
+      "id": 1,
+      "nombre": "Juan",
+      "raza": "Humano",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 2,
+      "nombre": "Pedro",
+      "raza": "Elfo",
+      "lugar": "Dol Blathanna"
+    },
+    {
+      "id": 3,
+      "nombre": "Maria",
+      "raza": "Enana",
+      "lugar": "Mahakam"
+    },
+    {
+      "id": 4,
+      "nombre": "Luis",
+      "raza": "Enano",
+      "lugar": "Mahakam"
+    },
+    {
+      "id": 5,
+      "nombre": "Ana",
+      "raza": "Elfa",
+      "lugar": "Dol Blathanna"
+    },
+    {
+      "id": 6,
+      "nombre": "Jose",
+      "raza": "Humano",
+      "lugar": "Novigrado"
+    }
+  ]
+}

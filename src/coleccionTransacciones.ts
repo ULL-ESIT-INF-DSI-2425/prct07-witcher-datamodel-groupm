@@ -2,6 +2,7 @@ import { Transaccion } from './transaccion.js';
 import { Bien } from './bien.js';
 import { Cliente } from './cliente.js';
 import { Mercader } from './mercader.js';
+import { JSONFile, Low } from 'lowdb';
 
 /**
  * Clase que representa una coleccion de Transacciones
@@ -92,5 +93,79 @@ export class ColeccionTransacciones {
       Cliente: t.cliente.nombre,
       Mercader: t.mercader.nombre
     })));
+  }
+}
+
+type JsonTransacciones = {
+  transaccion: {
+    id: number,
+    fecha: Date,
+    tipo: 'compra' | 'venta' | 'devolucion',
+    bienes: Bien[],
+    cliente: Cliente,
+    mercader: Mercader,
+    monto: number
+  }[];
+}
+
+export class JsonColeccionTransacciones extends ColeccionTransacciones {
+  
+  private transaccionesDatebase: Low<JsonTransacciones>;
+  /**
+   * Constructor de la clase JsonColeccionTransacciones
+   * @param transacciones - objeto de tipo JsonTransacciones
+   */
+  constructor(transacciones: Transaccion[]) {
+    super(transacciones);
+    const adapter = new JSONFile<JsonTransacciones>('transacciones.json');
+    this.transaccionesDatebase = new Low(adapter);
+    this.initialize();
+  }
+
+  private async initialize(transacciones: Transaccion[] = []) {
+
+    await this.transaccionesDatebase.read();
+
+    if (!this.transaccionesDatebase.data) {
+      this.transaccionesDatebase.data = { transaccion: transacciones };
+      await this.transaccionesDatebase.write();
+    } else {
+
+      // Validar cada objeto en la base de datos
+      this.transaccionesDatebase.data.transaccion.forEach((transaccion) => {
+        if (transaccion.id && transaccion.fecha && transaccion.tipo && transaccion.bienes && transaccion.cliente && transaccion.mercader) {
+          this.transacciones.push(
+            new Transaccion(transaccion.id, transaccion.tipo, transaccion.bienes, transaccion.monto, transaccion.cliente, transaccion.mercader)
+          );
+        }
+      });
+    }
+
+    if (transacciones.length == 0) {
+      throw new Error('No hay transacciones registradas.');
+    }
+  }
+
+  añadir(transaccion: Transaccion) {
+    super.añadir(transaccion);
+    this.actualizarBase();
+  }
+
+  registrar(id: number, tipo: 'compra' | 'venta' | 'devolucion', bienes: Bien[], monto: number, cliente: Cliente, mercader: Mercader) {
+    super.registrar(id, tipo, bienes, monto, cliente, mercader);
+    this.actualizarBase();
+  }
+
+  private actualizarBase() {
+    this.transaccionesDatebase.data!.transaccion = this.transacciones.map(transaccion => ({
+      id: transaccion.id,
+      fecha: transaccion.fecha,
+      tipo: transaccion.tipo,
+      bienes: transaccion.bienes,
+      cliente: transaccion.cliente,
+      mercader: transaccion.mercader,
+      monto: transaccion.monto
+    }));
+    this.transaccionesDatebase.write();
   }
 }
