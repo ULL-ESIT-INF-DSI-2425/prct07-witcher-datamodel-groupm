@@ -148,34 +148,45 @@ export class JsonColeccionBienes extends ColeccionBienes {
 
   private bienesDatabase: Low<JsonBienes>;
 
-  constructor(bienes: Bien[]) {
+
+  constructor(bienes: Bien[] = []) {
     super();
-    const adapter = new JSONFile<JsonBienes>('bienes.json');
+    const adapter = new JSONFile<JsonBienes>('data/bienes.json');
     this.bienesDatabase = new Low(adapter);
     this.initialize(bienes);
   }
 
-  private async initialize(bienes: Bien[]) {
+  private async initialize(bienes: Bien[] = []) {
+    try {
+      // Intentar leer la base de datos
+      await this.bienesDatabase.read();
+  
+      // Si la base de datos está vacía o no tiene datos válidos, inicializarla. Es decir, cuando en el fichero aparezca { bien: [] }
+      if (!this.bienesDatabase.data || !Array.isArray(this.bienesDatabase.data.bien)) {
+        this.bienesDatabase.data = { bien: bienes };
+        await this.bienesDatabase.write();
+        
+      } else {
+        // Validar cada objeto en la base de datos
+        this.bienesDatabase.data.bien.forEach((bien) => {
+          if (bien.id && bien.nombre && bien.descripcion && bien.material && bien.peso && bien.valor) {
+            this.bienes.push(
+              new Bien(bien.id, bien.nombre, bien.descripcion, bien.material, bien.peso, bien.valor)
+            );
+          }
+        });
+      }
+  
+      // Si no hay bienes válidos, inicializar con los bienes proporcionados
+      if (this.bienes.length === 0) {
+        this.bienes = bienes;
+        this.actualizarBase();
+      }
 
-    await this.bienesDatabase.read();
-
-    // Validar si los datos son válidos
-    if (!this.bienesDatabase.data) {
+    // Manejar el caso en que el fichero esté completamente vacío o no exista
+    } catch (error) {
       this.bienesDatabase.data = { bien: bienes };
       await this.bienesDatabase.write();
-    } else {
-
-      // Validar cada objeto en la base de datos
-      this.bienesDatabase.data.bien.forEach((bien) => {
-        if (bien.id && bien.nombre && bien.descripcion && bien.material && bien.peso && bien.valor) {
-          this.bienes.push(
-            new Bien(bien.id, bien.nombre, bien.descripcion, bien.material, bien.peso, bien.valor)
-          );
-        }
-      });
-    }
-
-    if (this.bienes.length === 0) {
       this.bienes = bienes;
       this.actualizarBase();
     }

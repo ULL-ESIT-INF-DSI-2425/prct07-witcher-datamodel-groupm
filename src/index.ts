@@ -3,21 +3,21 @@ import { Inventario } from './inventario.js';
 import { Bien } from './bien.js';
 import { ColeccionBienes, JsonColeccionBienes } from './coleccionBienes.js';
 import { Cliente } from './cliente.js';
-import { ColeccionClientes } from './coleccionClientes.js';
+import { ColeccionClientes, JsonColeccionClientes } from './coleccionClientes.js';
 import { Mercader } from './mercader.js';
-import { ColeccionMercaderes } from './coleccionMercaderes.js';
+import { ColeccionMercaderes, JsonColeccionMercaderes } from './coleccionMercaderes.js';
 import { Transaccion } from './transaccion.js';
-import { ColeccionTransacciones } from './coleccionTransacciones.js';
+import { ColeccionTransacciones, JsonColeccionTransacciones } from './coleccionTransacciones.js';
 import * as menu from './menu.js';
 
 // Datos iniciales
 const declaracionBienes = [
-    new Bien(1, 'Espada', '', 'Acero de Mahakam', 100, 500),
-    new Bien(2, 'Pala', '', 'Cuero endurecido', 10, 100),
-    new Bien(3, 'Pico', '', 'Esencia magica', 200, 200),
-    new Bien(4, 'Azada', '', 'Acero de Mahakam', 10, 100),
-    new Bien(5, 'Hacha', '', 'Acero de Mahakam', 10, 200),
-    new Bien(6, 'Casco', '', 'Cuero endurecido', 200, 500),
+    new Bien(1, 'Espada', 'Prueba', 'Acero de Mahakam', 100, 500),
+    new Bien(2, 'Pala', 'Prueba', 'Cuero endurecido', 10, 100),
+    new Bien(3, 'Pico', 'Prueba', 'Esencia magica', 200, 200),
+    new Bien(4, 'Azada', 'Prueba', 'Acero de Mahakam', 10, 100),
+    new Bien(5, 'Hacha', 'Prueba', 'Acero de Mahakam', 10, 200),
+    new Bien(6, 'Casco', 'Prueba', 'Cuero endurecido', 200, 500),
   ];
   
   const declaracionClientes = [
@@ -33,8 +33,8 @@ const declaracionBienes = [
   ];
   
   let bienes = new JsonColeccionBienes(declaracionBienes);
-  let clientes = new ColeccionClientes(declaracionClientes);
-  let mercaderes = new ColeccionMercaderes(declaracionMercaderes);
+  let clientes = new JsonColeccionClientes(declaracionClientes);
+  let mercaderes = new JsonColeccionMercaderes(declaracionMercaderes);
   
   let inventario = new Inventario(bienes, mercaderes, clientes);
   

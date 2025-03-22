@@ -3,7 +3,7 @@
     {
       "id": 1,
       "nombre": "Espada",
-      "descripcion": "",
+      "descripcion": "Prueba",
       "material": "Acero de Mahakam",
       "peso": 100,
       "valor": 500
@@ -11,7 +11,7 @@
     {
       "id": 2,
       "nombre": "Pala",
-      "descripcion": "",
+      "descripcion": "Prueba",
       "material": "Cuero endurecido",
       "peso": 10,
       "valor": 100
@@ -19,15 +19,23 @@
     {
       "id": 3,
       "nombre": "Pico",
-      "descripcion": "",
+      "descripcion": "Prueba",
       "material": "Esencia magica",
       "peso": 200,
       "valor": 200
     },
     {
+      "id": 4,
+      "nombre": "Azada",
+      "descripcion": "Prueba",
+      "material": "Acero de Mahakam",
+      "peso": 10,
+      "valor": 100
+    },
+    {
       "id": 5,
       "nombre": "Hacha",
-      "descripcion": "",
+      "descripcion": "Prueba",
       "material": "Acero de Mahakam",
       "peso": 10,
       "valor": 200
@@ -35,18 +43,10 @@
     {
       "id": 6,
       "nombre": "Casco",
-      "descripcion": "",
+      "descripcion": "Prueba",
       "material": "Cuero endurecido",
       "peso": 200,
       "valor": 500
-    },
-    {
-      "id": 4,
-      "nombre": "Hola",
-      "descripcion": "Prueba",
-      "material": "2",
-      "peso": 5,
-      "valor": 10
     }
   ]
 }

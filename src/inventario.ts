@@ -1,20 +1,20 @@
 import { Bien } from './bien.js';
 import { ColeccionBienes, JsonColeccionBienes } from './coleccionBienes.js';
 import { Cliente } from './cliente.js';
-import { ColeccionClientes } from './coleccionClientes.js';
+import { ColeccionClientes, JsonColeccionClientes } from './coleccionClientes.js';
 import { Mercader } from './mercader.js'
-import { ColeccionMercaderes } from './coleccionMercaderes.js';
+import { ColeccionMercaderes, JsonColeccionMercaderes } from './coleccionMercaderes.js';
 import { Transaccion } from './transaccion.js';
-import { ColeccionTransacciones } from './coleccionTransacciones.js';
+import { ColeccionTransacciones, JsonColeccionTransacciones } from './coleccionTransacciones.js';
 
 /**
  * Clase Inventario
  */
 export class Inventario {
   accessor bienes: JsonColeccionBienes;
-  accessor mercaderes: ColeccionMercaderes;
-  accessor clientes: ColeccionClientes;
-  accessor transacciones: ColeccionTransacciones;
+  accessor mercaderes: JsonColeccionMercaderes;
+  accessor clientes: JsonColeccionClientes;
+  accessor transacciones: JsonColeccionTransacciones;
 
   /**
    * Constructor de la clase Inventario
@@ -23,7 +23,7 @@ export class Inventario {
    * @param clientes - Array de clientes
    * @param transacciones - Array de transacciones
    */
-  constructor(bienes: JsonColeccionBienes, mercaderes: ColeccionMercaderes, clientes: ColeccionClientes, transacciones: ColeccionTransacciones = new ColeccionTransacciones()) {
+  constructor(bienes: JsonColeccionBienes, mercaderes: JsonColeccionMercaderes, clientes: JsonColeccionClientes, transacciones: JsonColeccionTransacciones = new JsonColeccionTransacciones()) {
     this.bienes = bienes;
     this.mercaderes = mercaderes;
     this.clientes = clientes;

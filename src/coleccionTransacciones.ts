@@ -49,11 +49,11 @@ export class ColeccionTransacciones {
    * @param id - Identificador único de la transacción
    * @returns objeto de tipo Transaccion
    */
-  buscarPorPersonaID(id: number): ColeccionTransacciones {
+  buscarPorPersonaID(id: number): JsonColeccionTransacciones {
     if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
       throw new Error(`Transacción con ID ${id} no existe.`);
     }
-    return new ColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
+    return new JsonColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
   }
 
   /**
@@ -115,34 +115,45 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
    * Constructor de la clase JsonColeccionTransacciones
    * @param transacciones - objeto de tipo JsonTransacciones
    */
-  constructor(transacciones: Transaccion[]) {
-    super(transacciones);
-    const adapter = new JSONFile<JsonTransacciones>('transacciones.json');
+  constructor(transacciones: Transaccion[] = []) {
+    super();
+    const adapter = new JSONFile<JsonTransacciones>('data/transacciones.json');
     this.transaccionesDatebase = new Low(adapter);
     this.initialize();
   }
 
   private async initialize(transacciones: Transaccion[] = []) {
+    try {
+      // Intentar leer la base de datos
+      await this.transaccionesDatebase.read();
 
-    await this.transaccionesDatebase.read();
+      // Si la base de datos está vacía o no tiene datos válidos, inicializarla. Es decir, cuando en el fichero aparezca { transaccion: [] }
+      if (!this.transaccionesDatebase.data || !Array.isArray(this.transaccionesDatebase.data.transaccion)) {
+        this.transaccionesDatebase.data = { transaccion: transacciones };
+        await this.transaccionesDatebase.write();
+      } else {
 
-    if (!this.transaccionesDatebase.data) {
+        // Validar cada objeto en la base de datos
+        this.transaccionesDatebase.data.transaccion.forEach((transaccion) => {
+          if (transaccion.id && transaccion.fecha && transaccion.tipo && transaccion.bienes && transaccion.cliente && transaccion.mercader) {
+            this.transacciones.push(
+              new Transaccion(transaccion.id, transaccion.tipo, transaccion.bienes, transaccion.monto, transaccion.cliente, transaccion.mercader)
+            );
+          }
+        });
+      }
+
+      // Si no hay transacciones válidas, inicializar con las proporcionadas
+      if (transacciones.length == 0) {
+        this.transacciones = transacciones;
+        this.actualizarBase();
+      }
+    } catch (error) {
+      // Manejar el caso en que el fichero esté completamente vacío o no exista
       this.transaccionesDatebase.data = { transaccion: transacciones };
       await this.transaccionesDatebase.write();
-    } else {
-
-      // Validar cada objeto en la base de datos
-      this.transaccionesDatebase.data.transaccion.forEach((transaccion) => {
-        if (transaccion.id && transaccion.fecha && transaccion.tipo && transaccion.bienes && transaccion.cliente && transaccion.mercader) {
-          this.transacciones.push(
-            new Transaccion(transaccion.id, transaccion.tipo, transaccion.bienes, transaccion.monto, transaccion.cliente, transaccion.mercader)
-          );
-        }
-      });
-    }
-
-    if (transacciones.length == 0) {
-      throw new Error('No hay transacciones registradas.');
+      this.transacciones = transacciones;
+      this.actualizarBase();
     }
   }
 

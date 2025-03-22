@@ -1,0 +1,22 @@
+{
+  "mercader": [
+    {
+      "id": 1,
+      "nombre": "Geralt",
+      "profesion": "Herrero",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 2,
+      "nombre": "Daniel",
+      "profesion": "Alquimista",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 3,
+      "nombre": "Jose",
+      "profesion": "Herrero",
+      "lugar": "Velen"
+    }
+  ]
+}

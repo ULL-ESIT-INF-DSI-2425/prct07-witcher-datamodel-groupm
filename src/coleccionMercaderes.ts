@@ -11,7 +11,7 @@ export class ColeccionMercaderes {
    * Constructor de la clase ColeccionMercaderes
    * @param mercaderes - Mercaderes de la coleccion
    */
-  constructor(mercaderes: Mercader[]) {
+  constructor(mercaderes: Mercader[] = []) {
     this.mercaderes = mercaderes;
   }
 
@@ -110,35 +110,44 @@ type JsonMercader = {
 export class JsonColeccionMercaderes extends ColeccionMercaderes {
   private mercaderesDatabase: Low<JsonMercader>;
 
-  constructor(mercaderes: Mercader[]) {
-    super(mercaderes);
-    const adapter = new JSONFile<JsonMercader>('mercaderes.json');
+  constructor(mercaderes: Mercader[] = []) {
+    super();
+    const adapter = new JSONFile<JsonMercader>('data/mercaderes.json');
     this.mercaderesDatabase = new Low(adapter);
     this.initialize(mercaderes);
   }
 
-  private async initialize(mercaderes: Mercader[]) {
+  private async initialize(mercaderes: Mercader[] = []) {
 
-    await this.mercaderesDatabase.read();
-    
-    // Validar si los datos son válidos
-    if (!this.mercaderesDatabase.data) {
+    try {
+      // Intentar leer la base de datos
+      await this.mercaderesDatabase.read();
+      
+      // Si la base de datos está vacía o no tiene datos válidos, inicializarla. Es decir, cuando en el fichero aparezca { mercader: [] }
+      if (!this.mercaderesDatabase.data || !Array.isArray(this.mercaderesDatabase.data.mercader)) {
+        this.mercaderesDatabase.data = { mercader: mercaderes };
+        await this.mercaderesDatabase.write();
+      }
+      else {
+        // Validar cada objeto en la base de datos
+        this.mercaderesDatabase.data.mercader.forEach((mercader) => {
+          if (mercader.id && mercader.nombre && mercader.profesion && mercader.lugar) {
+            this.mercaderes.push(
+              new Mercader(mercader.id, mercader.nombre, mercader.profesion, mercader.lugar)
+            );
+          }
+        });
+      }
+      if (this.mercaderes.length === 0) {
+        this.mercaderes = mercaderes;
+        this.actualizarBase();
+      }
+    } catch (error) {
+      // Manejar el caso en que el fichero esté completamente vacío o no exista
       this.mercaderesDatabase.data = { mercader: mercaderes };
       await this.mercaderesDatabase.write();
-    }
-    else {
-      // Validar cada objeto en la base de datos
-      this.mercaderesDatabase.data.mercader.forEach((mercader) => {
-        if (mercader.id && mercader.nombre && mercader.profesion && mercader.lugar) {
-          this.mercaderes.push(
-            new Mercader(mercader.id, mercader.nombre, mercader.profesion, mercader.lugar)
-          );
-        }
-      });
-    }
-    if (this.mercaderes.length === 0) {
-      // A diferencia de los bienes que se le puede pasar al constructor una lista de bienes vacía, en este caso no se puede
-      throw new Error("No hay mercaderes en la base de datos.");
+      this.mercaderes = mercaderes;
+      this.actualizarBase();
     }
   }
 

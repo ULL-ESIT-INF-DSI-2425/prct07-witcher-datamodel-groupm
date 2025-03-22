@@ -7,7 +7,7 @@ import { ColeccionClientes } from './coleccionClientes.js';
 import { Mercader } from './mercader.js';
 import { ColeccionMercaderes } from './coleccionMercaderes.js';
 import { Transaccion } from './transaccion.js';
-import { ColeccionTransacciones } from './coleccionTransacciones.js';
+import { JsonColeccionTransacciones } from './coleccionTransacciones.js';
 
 // Enumeraciones para los comandos y tipos de entidades
 /**
@@ -588,7 +588,7 @@ async function promptGenerarInforme(inventario: Inventario) {
       ]);
 
       // Mostramos las transacciones de la persona
-      const transacciones: ColeccionTransacciones = inventario.transacciones.buscarPorPersonaID(Number(id));
+      const transacciones: JsonColeccionTransacciones = inventario.transacciones.buscarPorPersonaID(Number(id));
       if (transacciones.transacciones.length > 0) {
         transacciones.print();
       } else {
