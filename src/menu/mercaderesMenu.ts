@@ -5,6 +5,10 @@ import { Lugar } from '../module/mercader.js';
 import { Mercader } from '../module/mercader.js';
 import { JsonColeccionMercaderes } from '../db/jsonColeccionMercaderes.js';
 
+/**
+ * Función para mostrar el menú de gestión de Mercaderes
+ * @param mercaderes - Colección de mercaderes
+ */
 export async function mercaderesMenu(mercaderes: JsonColeccionMercaderes) {
     console.log(`Gestión de Mercaderes\n`);
 
@@ -42,6 +46,10 @@ export async function mercaderesMenu(mercaderes: JsonColeccionMercaderes) {
     }
 }
 
+/**
+ * Función para añadir un mercader
+ * @param mercaderes - Colección de mercaderes
+ */
 async function añadirMercader(mercaderes: JsonColeccionMercaderes) {
 const { id, nombre, profesion, lugar } = await inquirer.prompt([
   {
@@ -74,6 +82,10 @@ const { id, nombre, profesion, lugar } = await inquirer.prompt([
   await mercaderesMenu(mercaderes);
 }
 
+/**
+ * Función para eliminar un mercader según el ID
+ * @param mercaderes - Colección de mercaderes
+ */
 async function eliminarMercader(mercaderes: JsonColeccionMercaderes) {
   const { id } = await inquirer.prompt({
     type: 'number',
@@ -86,6 +98,10 @@ async function eliminarMercader(mercaderes: JsonColeccionMercaderes) {
   await mercaderesMenu(mercaderes);
 }
 
+/**
+ * Función para modificar un mercader según el ID, modificar el valor del campo seleccionado
+ * @param mercaderes - Colección de mercaderes
+ */
 async function modificarMercader(mercaderes: JsonColeccionMercaderes) {
   const { id, campo, valor } = await inquirer.prompt([
     {
@@ -106,11 +122,15 @@ async function modificarMercader(mercaderes: JsonColeccionMercaderes) {
     }
   ]);
 
-  mercaderes.modificar(id, campo, valor);
+  mercaderes.modificar(Number(id), campo, valor);
   console.log(`Mercader modificado con éxito.\n`);
   await mercaderesMenu(mercaderes);
 }
 
+/**
+ * Función para localizar un mercader según el campo y el valor de búsqueda
+ * @param mercaderes - Colección de mercaderes
+ */
 async function localizarMercader(mercaderes: JsonColeccionMercaderes) {
   const { campo, busqueda } = await inquirer.prompt([
     {

@@ -4,7 +4,10 @@ import inquirer from 'inquirer';
 import { mainMenu } from './mainMenu.js';
 import { Transaccion } from "../module/transaccion.js";
 
-
+/**
+ * Función para mostrar el menú de transacciones
+ * @param inventario - Inventario
+ */
 export async function transaccionesMenu(inventario: Inventario) {
   console.log(`Gestión de Mercaderes\n`);
 
@@ -38,6 +41,10 @@ export async function transaccionesMenu(inventario: Inventario) {
   }
 }
 
+/**
+ * Función para registrar una compra
+ * @param inventario - Inventario
+ */
 async function registrarCompra(inventario: Inventario) {
   const { id, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {
@@ -83,6 +90,10 @@ async function registrarCompra(inventario: Inventario) {
   await transaccionesMenu(inventario);
 }
 
+/**
+ * Función para registrar una venta
+ * @param inventario - Inventario
+ */
 async function registrarVenta(inventario: Inventario) {
   const { id, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {
@@ -128,6 +139,10 @@ async function registrarVenta(inventario: Inventario) {
   await transaccionesMenu(inventario);
 }
 
+/**
+ * Función para registrar una devolución
+ * @param inventario - Inventario
+ */
 async function registrarDevolucion(inventario: Inventario) {
   const { id, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {

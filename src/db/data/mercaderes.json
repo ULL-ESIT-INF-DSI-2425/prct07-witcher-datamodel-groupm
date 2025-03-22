@@ -17,6 +17,12 @@
       "nombre": "Jose",
       "profesion": "Herrero",
       "lugar": "Velen"
+    },
+    {
+      "id": 12,
+      "nombre": "Manu",
+      "profesion": "Alquimista",
+      "lugar": "Kaer Trolde"
     }
   ]
 }

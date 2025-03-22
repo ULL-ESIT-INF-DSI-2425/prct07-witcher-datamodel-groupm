@@ -49,6 +49,11 @@ export class ColeccionBienes {
     if (!bien) {
       throw new Error(`Bien con ID ${id} no existe.`);
     }
+    // const bienIndex = this.bienes.findIndex(b => b.id === Number(id));
+    // if (bienIndex === -1) {
+    //   throw new Error(`Bien con ID ${id} no existe.`);
+    // }
+    // const bien = this.bienes[bienIndex];
     switch (campo) {
       case 'nombre':
         bien.nombre = valor;

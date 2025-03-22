@@ -4,11 +4,11 @@
       "id": 1,
       "nombre": "Geralt",
       "raza": "Humano",
-      "lugar": "Novigrado"
+      "lugar": "Velen"
     },
     {
       "id": 2,
-      "nombre": "Daniel",
+      "nombre": "Saul",
       "raza": "Elfo",
       "lugar": "Novigrado"
     },

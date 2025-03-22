@@ -2,7 +2,7 @@ import { Transaccion } from '../module/transaccion.js';
 import { Bien } from '../module/bien.js';
 import { Cliente } from '../module/cliente.js';
 import { Mercader } from '../module/mercader.js';
-import { JsonColeccionTransacciones } from '../db/jsonColeccionTransacciones.js';
+// import { JsonColeccionTransacciones } from '../db/jsonColeccionTransacciones.js';
 import { JSONFile, Low } from 'lowdb';
 
 /**
@@ -50,11 +50,18 @@ export class ColeccionTransacciones {
    * @param id - Identificador único de la transacción
    * @returns objeto de tipo Transaccion
    */
-  buscarPorPersonaID(id: number): JsonColeccionTransacciones {
+  // buscarPorPersonaID(id: number): JsonColeccionTransacciones {
+  //   if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
+  //     throw new Error(`Transacción con ID ${id} no existe.`);
+  //   }
+  //   return new JsonColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
+  // }
+
+  buscarPorPersonaID(id: number): ColeccionTransacciones {
     if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
       throw new Error(`Transacción con ID ${id} no existe.`);
     }
-    return new JsonColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
+    return new ColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
   }
 
   /**

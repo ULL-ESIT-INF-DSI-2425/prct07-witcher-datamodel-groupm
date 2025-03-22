@@ -17,6 +17,9 @@ type JsonTransacciones = {
   }[];
 }
 
+/**
+ * Clase para gestionar una colección de transacciones en formato JSON
+ */
 export class JsonColeccionTransacciones extends ColeccionTransacciones {
   
   private transaccionesDatebase: Low<JsonTransacciones>;
@@ -31,6 +34,10 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
     this.initialize();
   }
 
+  /**
+   * Función para inicializar la base de datos de transacciones
+   * @param transacciones - Lista de transacciones
+   */
   private async initialize(transacciones: Transaccion[] = []) {
     try {
       // Intentar leer la base de datos
@@ -66,16 +73,45 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
     }
   }
 
+  /**
+   * Función para añadir una transacción a la base de datos
+   * @param transaccion - objeto de tipo Transaccion
+   */
   añadir(transaccion: Transaccion) {
     super.añadir(transaccion);
     this.actualizarBase();
   }
 
+  /**
+   * Función para registrar una transacción
+   * @param id - id de la transacción
+   * @param tipo - tipo de transacción
+   * @param bienes - lista de bienes
+   * @param monto - monto de la transacción
+   * @param cliente - objeto de tipo Cliente
+   * @param mercader - objeto de tipo Mercader
+   */
   registrar(id: number, tipo: 'compra' | 'venta' | 'devolucion', bienes: Bien[], monto: number, cliente: Cliente, mercader: Mercader) {
     super.registrar(id, tipo, bienes, monto, cliente, mercader);
     this.actualizarBase();
   }
 
+  /**
+   * Método para buscar una transacción por su ID
+   * @param id - Identificador único de la transacción
+   * @returns objeto de tipo Transaccion
+   */
+  buscarPorPersonaID(id: number): JsonColeccionTransacciones {
+    if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
+      throw new Error(`Transacción con ID ${id} no existe.`);
+    }
+    return new JsonColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
+  }
+
+
+  /**
+   * Función para actualizar la base de datos con los cambios realizados
+   */
   private actualizarBase() {
     this.transaccionesDatebase.data!.transaccion = this.transacciones.map(transaccion => ({
       id: transaccion.id,

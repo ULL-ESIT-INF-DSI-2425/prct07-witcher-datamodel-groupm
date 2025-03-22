@@ -13,10 +13,17 @@ type JSONClientes = {
   }[];
 };
 
+/**
+ * Clase para gestionar una colección de clientes en formato JSON
+ */
 export class JsonColeccionClientes extends ColeccionClientes {
 
   private clientesDatabase: Low<JSONClientes>
 
+  /**
+   * Constructor de la clase
+   * @param clientes - Lista de clientes
+   */
   constructor(clientes: Cliente[] = []) {
     super();
     const adapter = new JSONFile<JSONClientes>('src/db/data/clientes.json');
@@ -24,6 +31,10 @@ export class JsonColeccionClientes extends ColeccionClientes {
     this.initialize(clientes);
   }
 
+  /**
+   * Función para inicializar la base de datos de clientes
+   * @param clientes - Lista de clientes
+   */
   private async initialize(clientes: Cliente[] = []) {
     try {
       await this.clientesDatabase.read();
@@ -59,21 +70,38 @@ export class JsonColeccionClientes extends ColeccionClientes {
     }
   }
 
+  /**
+   * Función para añadir un cliente a la colección
+   * @param cliente - Cliente a añadir
+   */
   añadir(cliente: Cliente) {
     super.añadir(cliente);
     this.actualizarBase();
   }
 
+  /**
+   * Función para eliminar un cliente según el ID
+   * @param id - ID del cliente a eliminar
+   */
   eliminar(id: number) {
     super.eliminar(id);
     this.actualizarBase();
   }
 
+  /**
+   * Función para modificar un cliente según el ID, modificar el valor del campo seleccionado
+   * @param id - ID del cliente a modificar
+   * @param campo - Campo a modificar
+   * @param valor - Nuevo valor
+   */
   modificar(id: number, campo: string, valor: string) {
     super.modificar(id, campo, valor);
     this.actualizarBase();
   }
 
+  /**
+   * Función para actualizar la base de datos con los cambios realizados
+   */
   private actualizarBase() {
     this.clientesDatabase.data!.cliente = this.clientes.map(cliente => ({
       id: cliente.id,

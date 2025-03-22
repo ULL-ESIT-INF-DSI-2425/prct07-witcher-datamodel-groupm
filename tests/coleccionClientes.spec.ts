@@ -41,11 +41,31 @@ describe('ColeccionClientes', () => {
       coleccion.modificar(1, 'nombre', 'John Smith');
       expect(coleccion.clientes[0].nombre).toBe('John Smith');
     });
+
+    it('debería modificar la raza de un cliente', () => {
+      coleccion.modificar(1, 'raza', 'Elfo');
+      expect(coleccion.clientes[0].raza).toBe('Elfo');
+    });
+
+    it('debería modificar el lugar de un cliente', () => {
+      coleccion.modificar(1, 'lugar', 'Rivendell');
+      expect(coleccion.clientes[0].lugar).toBe('Rivendell');
+    });
+
+    it('debería lanzar un error al modificar un campo no existente', () => {
+      expect(() => coleccion.modificar(1, 'aura', 'Elfo')).toThrowError('Campo aura no existe en Cliente.');
+    });
   
     it('debería lanzar un error al modificar un cliente no existente', () => {
       expect(() => coleccion.modificar(3, 'nombre', 'John Smith')).toThrowError('Cliente con ID 3 no existe.');
     });
   
+    it('debería buscar clientes por ID', () => {
+      const result = coleccion.buscar('ID', '1');
+      expect(result.clientes.length).toBe(1);
+      expect(result.clientes[0].id).toBe(1);
+    });
+
     it('debería buscar clientes por nombre', () => {
       const result = coleccion.buscar('Nombre', 'John');
       expect(result.clientes.length).toBe(1);
@@ -62,6 +82,10 @@ describe('ColeccionClientes', () => {
       const result = coleccion.buscar('Lugar', 'Gondor');
       expect(result.clientes.length).toBe(1);
       expect(result.clientes[0].lugar).toBe('Gondor');
+    });
+
+    it('debería lanzar un error al buscar por un campo no existente', () => {
+      expect(() => coleccion.buscar('Aura', 'Gondor')).toThrowError('Ha ocurrido un error a la hora de hacer la busqueda de un cliente');
     });
   
     it('debería imprimir la información de todos los clientes', () => {

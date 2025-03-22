@@ -3,6 +3,10 @@ import { Bien } from '../module/bien.js';
 import { JsonColeccionBienes } from '../db/jsonColeccionBienes.js';
 import { mainMenu } from './mainMenu.js';
 
+/**
+ * Función para mostrar el menú de gestión de Bienes
+ * @param bienes 
+ */
 export async function bienesMenu(bienes: JsonColeccionBienes) {
   console.log(`Gestión de Bienes\n`);
 
@@ -36,7 +40,11 @@ export async function bienesMenu(bienes: JsonColeccionBienes) {
   }
 }
 
-async function añadirBien(bienes: JsonColeccionBienes) {
+/**
+ * Función añadir bien
+ * @param bienes - Colección de bienes
+ */
+export async function añadirBien(bienes: JsonColeccionBienes) {
   const { id, nombre, descripcion, material, peso, precio } = await inquirer.prompt([
     {
       type: 'number',
@@ -77,23 +85,32 @@ async function añadirBien(bienes: JsonColeccionBienes) {
   await bienesMenu(bienes);
 }
 
-async function eliminarBien(bienes: JsonColeccionBienes) {
+/**
+ * Función eliminar bien
+ * @param bienes - Colección de bienes
+ */
+export async function eliminarBien(bienes: JsonColeccionBienes) { // Eliminamos según el ID
   const { id } = await inquirer.prompt({
     type: 'number',
     name: 'id',
     message: 'ID del Bien a eliminar',
   });
 
-    bienes.eliminar(id);
+    bienes.eliminar(Number(id));
     console.log(`Bien eliminado con éxito.\n`);
 
   await bienesMenu(bienes);
 }
 
-async function modificarBien(bienes: JsonColeccionBienes) {
-  const { id, campo, valor } = await inquirer.prompt([
+/**
+ * Función modificar un bien según el ID, modificamos el valor del campo seleccionado
+ * @param bienes - Colección de bienes
+ */
+export async function modificarBien(bienes: JsonColeccionBienes) {
+  const { id, campo, valor } = await inquirer.prompt([ // Modificamos según el ID, el valor del campo seleccionado
     {
       type: 'input',
+      // type: 'number',
       name: 'id',
       message: `Ingrese el ID del bien a modificar: `,
     },
@@ -101,7 +118,7 @@ async function modificarBien(bienes: JsonColeccionBienes) {
       type: 'list',
       name: 'campo',
       message: `Seleccione el campo a modificar: `,
-      choices: ['nombre', 'descripcion', 'material', 'stock', 'precio'],
+      choices: ['nombre', 'descripcion', 'material', 'peso', 'valor'],
     },
     {
       type: 'input',
@@ -110,7 +127,7 @@ async function modificarBien(bienes: JsonColeccionBienes) {
     }
   ]);
 
-  bienes.modificar(id, campo, valor);
+  bienes.modificar(Number(id), campo, valor);
   console.log(`Bien modificado con éxito.\n`);
   await bienesMenu(bienes);
 }

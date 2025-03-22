@@ -13,11 +13,17 @@ type JsonBienes = {
   }[];
 };
 
+/**
+ * Clase para gestionar una colección de bienes en formato JSON
+ */
 export class JsonColeccionBienes extends ColeccionBienes {
 
   private bienesDatabase: Low<JsonBienes>;
 
-
+  /**
+   * Constructor de la clase
+   * @param bienes - Lista de bienes
+   */
   constructor(bienes: Bien[] = []) {
     super();
     const adapter = new JSONFile<JsonBienes>('src/db/data/bienes.json');
@@ -25,6 +31,10 @@ export class JsonColeccionBienes extends ColeccionBienes {
     this.initialize(bienes);
   }
 
+  /**
+   * Función para inicializar la base de datos de bienes
+   * @param bienes - Lista de bienes
+   */
   private async initialize(bienes: Bien[] = []) {
     try {
       // Intentar leer la base de datos
@@ -61,21 +71,38 @@ export class JsonColeccionBienes extends ColeccionBienes {
     }
   }
 
-  añadir(bien: Bien) {
+  /**
+   * Función para añadir un bien a la colección
+   * @param bien - Bien a añadir
+   */
+  añadir(bien: Bien) { 
     super.añadir(bien);
     this.actualizarBase(); 
   }
 
-  modificar(id: number, campo: string, valor: string) {
+  /**
+   * Función para modificar un bien de la colección
+   * @param id - Identificador del bien
+   * @param campo - Campo a modificar
+   * @param valor - Valor nuevo
+   */
+  modificar(id: number, campo: string, valor: string) { 
     super.modificar(id, campo, valor);
     this.actualizarBase(); 
   }
 
+  /**
+   * Función para eliminar un bien de la colección seguún el ID
+   * @param id - Identificador del bien
+   */
   eliminar(id: number) {
     super.eliminar(id);
     this.actualizarBase(); 
   }
 
+  /**
+   * Función para actualizar la base de datos con los cambios realizados
+   */
   private actualizarBase() {
     this.bienesDatabase.data!.bien = this.bienes.map(bien => ({
       id: bien.id,

@@ -31,9 +31,19 @@ describe('ColeccionMercaderes', () => {
     expect(() => coleccion.eliminar(3)).toThrow('Mercader con ID 3 no existe.');
   });
 
-  it('debería modificar un campo de un mercader', () => {
+  it('debería modificar el nombre de un mercader', () => {
     coleccion.modificar(1, 'nombre', 'Lambert');
     expect(mercader1.nombre).toBe('Lambert');
+  });
+
+  it('debería modificar la profesión de un mercader', () => {
+    coleccion.modificar(1, 'profesion', 'Alquimista');
+    expect(mercader1.profesion).toBe('Alquimista');
+  });
+
+  it('debería modificar el lugar de un mercader', () => {
+    coleccion.modificar(1, 'lugar', 'Velen');
+    expect(mercader1.lugar).toBe('Velen');
   });
 
   it('debería lanzar un error al modificar un mercader no existente', () => {
@@ -42,6 +52,12 @@ describe('ColeccionMercaderes', () => {
 
   it('debería lanzar un error al modificar un campo no existente', () => {
     expect(() => coleccion.modificar(1, 'edad', '30')).toThrow('Campo edad no existe en Mercader.');
+  });
+
+  it('debería buscar mercaderes por ID', () => {
+    const result = coleccion.buscar('ID', '1');
+    expect(result.mercaderes.length).toBe(1);
+    expect(result.mercaderes[0].nombre).toBe('Geralt');
   });
 
   it('debería buscar mercaderes por nombre', () => {
@@ -60,6 +76,10 @@ describe('ColeccionMercaderes', () => {
     const result = coleccion.buscar('Lugar', 'Novigrado');
     expect(result.mercaderes.length).toBe(1);
     expect(result.mercaderes[0].lugar).toBe('Novigrado');
+  });
+
+  it('debería lanzar un error al buscar por un campo no existente', () => {
+    expect(() => coleccion.buscar('Edad', '30')).toThrow('Ha ocurrido un error a la hora de hacer la busqueda de un cliente');
   });
 
   it('debería imprimir todos los mercaderes en la colección', () => {

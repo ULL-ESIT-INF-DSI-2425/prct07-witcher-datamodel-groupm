@@ -5,6 +5,10 @@ import { mainMenu } from './mainMenu.js';
 import { Raza } from '../module/cliente.js';
 import { Lugar } from '../module/mercader.js';
 
+/**
+ * Función para mostrar el menú de gestión de Clientes
+ * @param clientes - colección de clientes
+ */
 export async function clientesMenu(clientes: JsonColeccionClientes) {
   console.log(`Gestión de Bienes\n`);
 
@@ -24,10 +28,10 @@ export async function clientesMenu(clientes: JsonColeccionClientes) {
   });
 
   switch (comando) {
-    case 'Añadir Bien':
+    case 'Añadir Cliente':
       await añadirCliente(clientes);
       break;
-    case 'Eliminar Bien':
+    case 'Eliminar Cliente':
       await eliminarCliente(clientes);
       break;
     case 'Modificar Cliente':
@@ -42,31 +46,35 @@ export async function clientesMenu(clientes: JsonColeccionClientes) {
   }
 }
 
+/**
+ * Función añadir cliente
+ * @param clientes - Colección de clientes
+ */
 async function añadirCliente(clientes: JsonColeccionClientes) {
-const { id, nombre, raza, lugar } = await inquirer.prompt([
-  {
-    type: 'number',
-    name: 'id',
-    message: 'ID del Cliente',
-  },
-  {
-    type: 'input',
-    name: 'nombre',
-    message: 'Nombre del Cliente',
-  },
-  {
-    type: 'list',
-    name: 'raza',
-    message: 'Raza del Cliente',
-    choices: ['Humano', 'Elfo', 'Enano', 'Hechicero'],
-  },
-  {
-    type: 'list',
-    name: 'lugar',
-    message: 'Lugar del cliente',
-    choices: ['Novigrado', 'Velen', 'Kaer Trolde'],
-  },
-]);
+  const { id, nombre, raza, lugar } = await inquirer.prompt([
+    {
+      type: 'number',
+      name: 'id',
+      message: 'ID del Cliente',
+    },
+    {
+      type: 'input',
+      name: 'nombre',
+      message: 'Nombre del Cliente',
+    },
+    {
+      type: 'list',
+      name: 'raza',
+      message: 'Raza del Cliente',
+      choices: ['Humano', 'Elfo', 'Enano', 'Hechicero'],
+    },
+    {
+      type: 'list',
+      name: 'lugar',
+      message: 'Lugar del cliente',
+      choices: ['Novigrado', 'Velen', 'Kaer Trolde'],
+    },
+  ]);
 
   const cliente = new Cliente(id, nombre, raza as Raza, lugar as Lugar);
   clientes.añadir(cliente);
@@ -74,7 +82,11 @@ const { id, nombre, raza, lugar } = await inquirer.prompt([
   await clientesMenu(clientes);
 }
 
-async function eliminarCliente(clientes: JsonColeccionClientes) {
+/**
+ * Función eliminar cliente según el ID
+ * @param clientes - Colección de clientes
+ */
+async function eliminarCliente(clientes: JsonColeccionClientes) { // Eliminamos según el ID
   const { id } = await inquirer.prompt({
     type: 'number',
     name: 'id',
@@ -86,7 +98,11 @@ async function eliminarCliente(clientes: JsonColeccionClientes) {
   await clientesMenu(clientes);
 }
 
-async function modificarCliente(clientes: JsonColeccionClientes) {
+/**
+ * Función modificar cliente según el ID, modificamos el valor del campo seleccionado
+ * @param clientes - Colección de clientes
+ */
+async function modificarCliente(clientes: JsonColeccionClientes) { // Modificamos según el ID y el campo seleccionado
   const { id, campo, valor } = await inquirer.prompt([
     {
       type: 'input',
@@ -106,12 +122,16 @@ async function modificarCliente(clientes: JsonColeccionClientes) {
     }
   ]);
 
-  clientes.modificar(id, campo, valor);
+  clientes.modificar(Number(id), campo, valor);
   console.log(`Cliente modificado con éxito.\n`);
   await clientesMenu(clientes);
 }
 
-async function localizarCliente(clientes: JsonColeccionClientes) {
+/**
+ * Función localizar cliente según el valor del campo seleccionado
+ * @param clientes - Colección de clientes
+ */
+async function localizarCliente(clientes: JsonColeccionClientes) { // Buscamos según el campo seleccionado
   const { campo, busqueda } = await inquirer.prompt([
       {
         type: 'list',

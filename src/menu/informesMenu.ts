@@ -4,7 +4,10 @@ import inquirer from 'inquirer';
 import { mainMenu } from './mainMenu.js';
 import { Transaccion } from "../module/transaccion.js";
 
-
+/**
+ * Función para mostrar el menú de informes
+ * @param inventario - Inventario
+ */
 export async function informesMenu(inventario: Inventario) {
   console.log(`Gestión de Mercaderes\n`);
 
@@ -41,6 +44,10 @@ export async function informesMenu(inventario: Inventario) {
   }
 }
 
+/**
+ * Función para mostrar el stock de bienes
+ * @param inventario - Inventario
+ */
 async function stockBienes(inventario: Inventario) {
   inventario.bienes.print();
   console.log('Stock de bienes');
@@ -71,6 +78,10 @@ async function stockBienes(inventario: Inventario) {
   await informesMenu(inventario);
 }
 
+/**
+ * Función para mostrar los bienes más demandados
+ * @param inventario - Inventario
+ */
 async function bienesDemandados(inventario: Inventario) {
   console.log('Lista ordenada de los bienes más demandados');
   inventario.transacciones.bienesDemandados().forEach((cantidad, nombre) => {
@@ -79,11 +90,19 @@ async function bienesDemandados(inventario: Inventario) {
   await informesMenu(inventario);
 }
 
+/**
+ * Función para mostrar los ingresos y gastos
+ * @param inventario - Inventario
+ */
 async function ingresosGastos(inventario: Inventario) {
   console.log('Ingresos/gastos');
   await informesMenu(inventario);
 }
 
+/**
+ * Función para mostrar el historial de transacciones
+ * @param inventario - Inventario
+ */
 async function historialTransacciones(inventario: Inventario) {
   inventario.clientes.print();
   inventario.mercaderes.print();
