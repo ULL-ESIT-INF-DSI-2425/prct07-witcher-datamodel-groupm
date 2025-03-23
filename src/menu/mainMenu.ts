@@ -15,6 +15,7 @@ export enum Menu_Opciones {
   ACCION_MERCADERES = 'Mercaderes',
   TRANSACCIONES = 'Transacciones',
   GENERAR_INFORME = 'Generar Informe',
+  MOSTRAR_INVENTARIO = 'Mostrar Inventario',
   SALIR = 'Salir'
 }
 
@@ -27,15 +28,13 @@ export enum Entidades {
   MERCADER = 'Mercader'
 }
 
+let inventario = new Inventario();
+
 /**
  * Funcion principal para mostrar el menú
  * @returns void
  */
 export async function mainMenu() {
-
-  let inventario = new Inventario();
-
-  console.log(`La Posada del Lobo Blanco\n`);
 
   const { comando } = await inquirer.prompt({
     type: 'list',
@@ -65,8 +64,17 @@ export async function mainMenu() {
       console.clear();
       await informesMenu(inventario);
       break;
+    case Menu_Opciones.MOSTRAR_INVENTARIO:
+      console.clear();
+      await mostrarInventario(inventario);
+      break;
     case Menu_Opciones.SALIR:
       console.log('Hasta la próxima!');
       break;
   }
+}
+
+async function mostrarInventario(inventario: Inventario) {
+  inventario.print();
+  await mainMenu();
 }

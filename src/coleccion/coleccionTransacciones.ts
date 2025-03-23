@@ -32,6 +32,19 @@ export class ColeccionTransacciones {
   }
 
   /**
+   * Método para eliminar una transacción de la colección
+   * @param id - Identificador único de la transacción
+   */
+  eliminar(id: number): void {
+    const index = this.transacciones.findIndex(t => t.id === id);
+    if (index === -1) {
+      throw new Error(`Transacción con ID ${id} no existe.`);
+    } else {
+      this.transacciones.splice(index, 1);
+    }
+  }
+
+  /**
    * Método para registrar una nueva transacción
    * @param id - Identificador único de la transacción
    * @param tipo - Tipo de transacción
@@ -58,9 +71,6 @@ export class ColeccionTransacciones {
   // }
 
   buscarPorPersonaID(id: number): ColeccionTransacciones {
-    if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
-      throw new Error(`Transacción con ID ${id} no existe.`);
-    }
     return new ColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
   }
 

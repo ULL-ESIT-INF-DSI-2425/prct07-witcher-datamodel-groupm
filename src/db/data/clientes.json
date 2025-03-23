@@ -1,22 +1,124 @@
 {
   "cliente": [
     {
-      "id": 1,
+      "id": 100,
       "nombre": "Geralt",
       "raza": "Humano",
-      "lugar": "Velen"
+      "lugar": "Novigrado"
     },
     {
-      "id": 2,
-      "nombre": "Saul",
+      "id": 101,
+      "nombre": "Daniel",
       "raza": "Elfo",
       "lugar": "Novigrado"
     },
     {
-      "id": 3,
+      "id": 102,
       "nombre": "Jose",
       "raza": "Humano",
       "lugar": "Velen"
+    },
+    {
+      "id": 103,
+      "nombre": "Triss",
+      "raza": "Hechicero",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 104,
+      "nombre": "Yennefer",
+      "raza": "Hechicero",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 105,
+      "nombre": "Zoltan",
+      "raza": "Enano",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 106,
+      "nombre": "Eskel",
+      "raza": "Humano",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 107,
+      "nombre": "Lambert",
+      "raza": "Humano",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 108,
+      "nombre": "Ciri",
+      "raza": "Hechicero",
+      "lugar": "Velen"
+    },
+    {
+      "id": 109,
+      "nombre": "Iorveth",
+      "raza": "Elfo",
+      "lugar": "Velen"
+    },
+    {
+      "id": 110,
+      "nombre": "Vesemir",
+      "raza": "Humano",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 111,
+      "nombre": "Hjalmar",
+      "raza": "Humano",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 112,
+      "nombre": "Avallac'h",
+      "raza": "Elfo",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 113,
+      "nombre": "Keira",
+      "raza": "Hechicero",
+      "lugar": "Velen"
+    },
+    {
+      "id": 114,
+      "nombre": "Dandelion",
+      "raza": "Humano",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 115,
+      "nombre": "Philippa",
+      "raza": "Hechicero",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 116,
+      "nombre": "Havard",
+      "raza": "Enano",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 117,
+      "nombre": "Eredin",
+      "raza": "Elfo",
+      "lugar": "Velen"
+    },
+    {
+      "id": 118,
+      "nombre": "Morvran",
+      "raza": "Humano",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 119,
+      "nombre": "Francesca",
+      "raza": "Elfo",
+      "lugar": "Kaer Trolde"
     }
   ]
 }

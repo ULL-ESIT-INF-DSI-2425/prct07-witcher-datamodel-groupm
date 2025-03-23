@@ -5,7 +5,7 @@ import { mainMenu } from './mainMenu.js';
 
 /**
  * Función para mostrar el menú de gestión de Bienes
- * @param bienes 
+ * @param bienes - Colección de bienes
  */
 export async function bienesMenu(bienes: JsonColeccionBienes) {
   console.log(`Gestión de Bienes\n`);

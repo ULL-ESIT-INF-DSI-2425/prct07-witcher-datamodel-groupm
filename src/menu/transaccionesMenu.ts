@@ -1,4 +1,3 @@
-import { JsonColeccionTransacciones } from "../db/jsonColeccionTransacciones.js";
 import { Inventario } from "../module/inventario.js";
 import inquirer from 'inquirer';
 import { mainMenu } from './mainMenu.js';
@@ -24,6 +23,7 @@ export async function transaccionesMenu(inventario: Inventario) {
         'Registrar Compra',
         'Registrar Venta',
         'Registrar Devolución',
+        'Eliminar Transacción',
         'Volver',
       ],
   });
@@ -38,6 +38,9 @@ export async function transaccionesMenu(inventario: Inventario) {
     case 'Registrar Devolución':
       await registrarDevolucion(inventario);
       break; 
+    case 'Eliminar Transacción':
+      await eliminarTransaccion(inventario);
+      break;
     case 'Volver':
       await mainMenu();
       break;
@@ -59,7 +62,7 @@ async function registrarCompra(inventario: Inventario) {
     { // Puede fallar
       type: 'input',
       name: 'bienes',
-      message: 'Introduce los bienes (separados por comas)',
+      message: 'Introduce las ID de los bienes (separados por comas)',
     },
     {
       type: 'number',
@@ -69,7 +72,7 @@ async function registrarCompra(inventario: Inventario) {
     {
       type: 'number',
       name: 'cliente',
-      message: 'introduce el id del cliente',
+      message: 'Introduce el id del cliente',
     },
     {
       type: 'number',
@@ -179,5 +182,21 @@ async function registrarDevolucion(inventario: Inventario) {
   });
   let transaccion = new Transaccion(id, "devolucion", bienesTransaccion, monto, buscarCliente, buscarMercader);
   inventario.transacciones.añadir(transaccion);
+  await transaccionesMenu(inventario);
+}
+
+/**
+ * Función eliminar la transacción según el ID
+ * @param transaccion - Colección de transacciones
+ */
+async function eliminarTransaccion(inventario: Inventario) { // Eliminamos según el ID
+  const { id } = await inquirer.prompt({
+    type: 'number',
+    name: 'id',
+    message: 'ID de la transacción a eliminar',
+  });
+
+  inventario.transacciones.eliminar(id);
+  console.log(`Transacción eliminado con éxito.\n`);
   await transaccionesMenu(inventario);
 }

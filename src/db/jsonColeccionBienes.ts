@@ -2,6 +2,9 @@ import { ColeccionBienes } from '../coleccion/coleccionBienes.js';
 import { Bien, Material } from '../module/bien.js';
 import { Low, JSONFile } from 'lowdb';
 
+/**
+ * Tipo de datos para un bien en formato JSON
+ */
 type JsonBienes = {
   bien: {
     id: number,
@@ -44,7 +47,6 @@ export class JsonColeccionBienes extends ColeccionBienes {
       if (!this.bienesDatabase.data || !Array.isArray(this.bienesDatabase.data.bien)) {
         this.bienesDatabase.data = { bien: bienes };
         await this.bienesDatabase.write();
-        
       } else {
         // Validar cada objeto en la base de datos
         this.bienesDatabase.data.bien.forEach((bien) => {

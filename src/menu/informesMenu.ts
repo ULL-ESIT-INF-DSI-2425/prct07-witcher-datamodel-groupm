@@ -1,4 +1,4 @@
-import { JsonColeccionTransacciones } from "../db/jsonColeccionTransacciones.js";
+import { ColeccionTransacciones } from "../coleccion/coleccionTransacciones.js";
 import { Inventario } from "../module/inventario.js";
 import inquirer from 'inquirer';
 import { mainMenu } from './mainMenu.js';
@@ -9,9 +9,6 @@ import { Transaccion } from "../module/transaccion.js";
  * @param inventario - Inventario
  */
 export async function informesMenu(inventario: Inventario) {
-  console.log(`Gestión de Mercaderes\n`);
-
-  inventario.print();
 
   const { comando } = await inquirer.prompt({
     type: 'list',
@@ -58,7 +55,7 @@ async function stockBienes(inventario: Inventario) {
       type: 'list',
       name: 'campo',
       message: 'Seleccione el campo de búsqueda',
-      choices: ['nombre', 'material', 'peso', 'valor'],
+      choices: ['nombre', 'material', 'descripcion','peso', 'valor'],
     },
     {
       type: 'input',
@@ -95,7 +92,15 @@ async function bienesDemandados(inventario: Inventario) {
  * @param inventario - Inventario
  */
 async function ingresosGastos(inventario: Inventario) {
-  console.log('Ingresos/gastos');
+  let totalIngresos = 0;
+  inventario.transacciones.transacciones.forEach(transaccion => {
+    if (transaccion.tipo === 'compra') {
+      totalIngresos += transaccion.monto;
+    } else if (transaccion.tipo === 'devolucion') {
+      totalIngresos -= transaccion.monto;
+    }
+  });
+  console.log(`Ingresos totales: ${totalIngresos} coronas`);
   await informesMenu(inventario);
 }
 
@@ -117,7 +122,7 @@ async function historialTransacciones(inventario: Inventario) {
   ]);
 
   // Mostramos las transacciones de la persona
-  const transacciones: JsonColeccionTransacciones = inventario.transacciones.buscarPorPersonaID(Number(id));
+  const transacciones: ColeccionTransacciones = inventario.transacciones.buscarPorPersonaID(Number(id));
   if (transacciones.transacciones.length > 0) {
     transacciones.print();
   } else {
