@@ -1,10 +1,10 @@
 import { Bien, Material } from '../module/bien.js';
-import { JSONFile, Low } from 'lowdb';
+import { Coleccion } from '../interfaces/coleccion.js';
 
 /**
  * Clase que representa una coleccion de Bienes
  */
-export class ColeccionBienes {
+export class ColeccionBienes implements Coleccion<Bien> {
   accessor bienes: Bien[];
   
   /**
@@ -49,11 +49,6 @@ export class ColeccionBienes {
     if (!bien) {
       throw new Error(`Bien con ID ${id} no existe.`);
     }
-    // const bienIndex = this.bienes.findIndex(b => b.id === Number(id));
-    // if (bienIndex === -1) {
-    //   throw new Error(`Bien con ID ${id} no existe.`);
-    // }
-    // const bien = this.bienes[bienIndex];
     switch (campo) {
       case 'nombre':
         bien.nombre = valor;

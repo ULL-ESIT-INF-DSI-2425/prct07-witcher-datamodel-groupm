@@ -1,3 +1,5 @@
+import { Identificable, Persona } from '../interfaces/objetos.js';
+
 /**
  * type profesion = 'Herrero' | 'Alquimista' | 'Mercader general';
  */
@@ -11,7 +13,7 @@ export type Lugar = 'Novigrado' | 'Velen' | 'Kaer Trolde';
 /**
  * Clase Mercader
  */
-export class Mercader {
+export class Mercader implements Identificable, Persona {
   accessor id: number;
   accessor nombre: string;
   accessor profesion: Profesion;

@@ -2,13 +2,12 @@ import { Transaccion } from '../module/transaccion.js';
 import { Bien } from '../module/bien.js';
 import { Cliente } from '../module/cliente.js';
 import { Mercader } from '../module/mercader.js';
-// import { JsonColeccionTransacciones } from '../db/jsonColeccionTransacciones.js';
-import { JSONFile, Low } from 'lowdb';
+import { Coleccion } from '../interfaces/coleccion.js';
 
 /**
  * Clase que representa una coleccion de Transacciones
  */
-export class ColeccionTransacciones {
+export class ColeccionTransacciones implements Coleccion<Transaccion> {
   accessor transacciones: Transaccion[];
 
   /**
@@ -54,8 +53,31 @@ export class ColeccionTransacciones {
    * @param mercader - Mercader
    */
   registrar(id: number, tipo: 'compra' | 'venta' | 'devolucion', bienes: Bien[], monto: number, cliente: Cliente, mercader: Mercader): void {
-    const transaccion = new Transaccion(id, tipo, bienes, monto, cliente, mercader);
-    this.añadir(transaccion);
+    if (tipo === 'devolucion') {
+      const transaccionCompra = this.transacciones.find(t =>
+        t.tipo === 'compra' &&
+        t.cliente === cliente &&
+        t.mercader === mercader &&
+        bienes.every(b => t.bienes.includes(b))
+      );
+
+      if (!transaccionCompra) {
+        console.log('No se puede realizar la devolucón debido a que este cliente, no le ha comprado esos articulos al mercader indicado.');
+      } else {
+        this.añadir(new Transaccion(id, tipo, bienes, monto, cliente, mercader));
+      }
+    } else {
+      this.añadir(new Transaccion(id, tipo, bienes, monto, cliente, mercader));
+    }
+  }
+
+  /**
+   * Método para determinar el siguiente ID de una transacción
+   * @returns número entero
+   */
+  determinarSiguienteId(): number {
+    if (this.transacciones.length === 0) return 300;
+    return this.transacciones[this.transacciones.length - 1].id + 1;
   }
 
   /**
@@ -63,13 +85,6 @@ export class ColeccionTransacciones {
    * @param id - Identificador único de la transacción
    * @returns objeto de tipo Transaccion
    */
-  // buscarPorPersonaID(id: number): JsonColeccionTransacciones {
-  //   if (!this.transacciones.some(t => t.cliente.id === id || t.mercader.id === id)) {
-  //     throw new Error(`Transacción con ID ${id} no existe.`);
-  //   }
-  //   return new JsonColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
-  // }
-
   buscarPorPersonaID(id: number): ColeccionTransacciones {
     return new ColeccionTransacciones(this.transacciones.filter(t => t.cliente.id === id || t.mercader.id === id));
   }
@@ -79,11 +94,11 @@ export class ColeccionTransacciones {
    * @returns map con los bienes más demandados
    */
   bienesDemandados(): Map<string, number> {
-    // Crear un mapa para contar las ocurrencias de cada bien en transacciones de tipo 'venta'
+    // Crear un mapa para contar las ocurrencias de cada bien en transacciones
     const contador = new Map<string, number>();
   
     this.transacciones
-      .filter(t => t.tipo === 'venta') // Filtrar solo las transacciones de tipo 'venta'
+      .filter(t => t.tipo === 'venta') 
       .forEach(t => {
         t.bienes.forEach(b => {
           contador.set(b.nombre, (contador.get(b.nombre) || 0) + 1);

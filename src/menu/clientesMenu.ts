@@ -10,7 +10,6 @@ import { Lugar } from '../module/mercader.js';
  * @param clientes - colección de clientes
  */
 export async function clientesMenu(clientes: JsonColeccionClientes) {
-  console.log(`Gestión de Bienes\n`);
 
   clientes.print();
 
@@ -41,6 +40,7 @@ export async function clientesMenu(clientes: JsonColeccionClientes) {
       await localizarCliente(clientes);
       break;
     case 'Volver':
+      console.clear();
       await mainMenu();
       break;
   }

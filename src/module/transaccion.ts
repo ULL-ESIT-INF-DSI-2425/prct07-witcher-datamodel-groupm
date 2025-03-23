@@ -1,11 +1,12 @@
 import { Cliente } from "./cliente.js";
 import { Mercader } from "./mercader.js";
 import { Bien } from "./bien.js";
+import { Identificable } from "../interfaces/objetos.js";
 
 /**
  * Clase Transaccion  
  */
-export class Transaccion {
+export class Transaccion implements Identificable {
   accessor id: number;
   accessor fecha: Date;
   accessor tipo: 'compra' | 'venta' | 'devolucion';

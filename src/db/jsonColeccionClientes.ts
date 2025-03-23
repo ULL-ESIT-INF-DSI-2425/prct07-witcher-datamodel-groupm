@@ -3,7 +3,11 @@ import { ColeccionClientes } from '../coleccion/coleccionClientes.js';
 import { JSONFile, Low } from 'lowdb';
 import { Raza } from '../module/cliente.js';
 import { Lugar } from '../module/mercader.js';
+import { Database } from '../interfaces/database.js';
 
+/**
+ * Tipo de datos para la colección de clientes en formato JSON
+ */
 type JSONClientes = {
   cliente: {
     id: number,
@@ -16,7 +20,7 @@ type JSONClientes = {
 /**
  * Clase para gestionar una colección de clientes en formato JSON
  */
-export class JsonColeccionClientes extends ColeccionClientes {
+export class JsonColeccionClientes extends ColeccionClientes implements Database<Cliente> {
 
   private clientesDatabase: Low<JSONClientes>
 
@@ -35,7 +39,7 @@ export class JsonColeccionClientes extends ColeccionClientes {
    * Función para inicializar la base de datos de clientes
    * @param clientes - Lista de clientes
    */
-  private async initialize(clientes: Cliente[] = []) {
+  public async initialize(clientes: Cliente[] = []) {
     try {
       await this.clientesDatabase.read();
 
@@ -102,7 +106,7 @@ export class JsonColeccionClientes extends ColeccionClientes {
   /**
    * Función para actualizar la base de datos con los cambios realizados
    */
-  private actualizarBase() {
+  public actualizarBase(): void {
     this.clientesDatabase.data!.cliente = this.clientes.map(cliente => ({
       id: cliente.id,
       nombre: cliente.nombre,

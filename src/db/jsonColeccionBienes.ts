@@ -1,6 +1,7 @@
 import { ColeccionBienes } from '../coleccion/coleccionBienes.js';
 import { Bien, Material } from '../module/bien.js';
 import { Low, JSONFile } from 'lowdb';
+import { Database } from '../interfaces/database.js';
 
 /**
  * Tipo de datos para un bien en formato JSON
@@ -19,7 +20,7 @@ type JsonBienes = {
 /**
  * Clase para gestionar una colección de bienes en formato JSON
  */
-export class JsonColeccionBienes extends ColeccionBienes {
+export class JsonColeccionBienes extends ColeccionBienes implements Database<Bien> {
 
   private bienesDatabase: Low<JsonBienes>;
 
@@ -38,7 +39,7 @@ export class JsonColeccionBienes extends ColeccionBienes {
    * Función para inicializar la base de datos de bienes
    * @param bienes - Lista de bienes
    */
-  private async initialize(bienes: Bien[] = []) {
+  public async initialize(bienes: Bien[] = []) {
     try {
       // Intentar leer la base de datos
       await this.bienesDatabase.read();
@@ -105,7 +106,7 @@ export class JsonColeccionBienes extends ColeccionBienes {
   /**
    * Función para actualizar la base de datos con los cambios realizados
    */
-  private actualizarBase() {
+  public actualizarBase(): void {
     this.bienesDatabase.data!.bien = this.bienes.map(bien => ({
       id: bien.id,
       nombre: bien.nombre,

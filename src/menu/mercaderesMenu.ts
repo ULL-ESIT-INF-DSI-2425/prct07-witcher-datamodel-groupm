@@ -10,9 +10,8 @@ import { JsonColeccionMercaderes } from '../db/jsonColeccionMercaderes.js';
  * @param mercaderes - Colección de mercaderes
  */
 export async function mercaderesMenu(mercaderes: JsonColeccionMercaderes) {
-    console.log(`Gestión de Mercaderes\n`);
 
-    mercaderes.print();
+  mercaderes.print();
 
     const { comando } = await inquirer.prompt({
         type: 'list',
@@ -41,6 +40,7 @@ export async function mercaderesMenu(mercaderes: JsonColeccionMercaderes) {
             await localizarMercader(mercaderes);
             break;
         case 'Volver':
+          console.clear();
             await mainMenu();
             break;
     }

@@ -36,6 +36,7 @@ export async function informesMenu(inventario: Inventario) {
       await historialTransacciones(inventario);
       break;
     case 'Volver':
+      console.clear();
       await mainMenu();
       break;
   }
@@ -80,9 +81,9 @@ async function stockBienes(inventario: Inventario) {
  * @param inventario - Inventario
  */
 async function bienesDemandados(inventario: Inventario) {
-  console.log('Lista ordenada de los bienes más demandados');
+  console.log('Lista ordenada de los bienes más vendidos');
   inventario.transacciones.bienesDemandados().forEach((cantidad, nombre) => {
-    console.log(`Nombre del bien: ${nombre}, Cantidad: ${cantidad}`);
+    console.log(`Nombre del bien: ${nombre}, veces vendido: ${cantidad}`);
   });
   await informesMenu(inventario);
 }
@@ -100,7 +101,7 @@ async function ingresosGastos(inventario: Inventario) {
       totalIngresos -= transaccion.monto;
     }
   });
-  console.log(`Ingresos totales: ${totalIngresos} coronas`);
+  console.log(`Benficios totales: ${totalIngresos} coronas`);
   await informesMenu(inventario);
 }
 

@@ -8,7 +8,6 @@ import { mainMenu } from './mainMenu.js';
  * @param bienes - Colección de bienes
  */
 export async function bienesMenu(bienes: JsonColeccionBienes) {
-  console.log(`Gestión de Bienes\n`);
 
   bienes.print();
 
@@ -35,6 +34,7 @@ export async function bienesMenu(bienes: JsonColeccionBienes) {
       await modificarBien(bienes);
       break; 
     case 'Volver':
+      console.clear();
       await mainMenu();
       break;
   }

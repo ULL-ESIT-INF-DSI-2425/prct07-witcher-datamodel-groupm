@@ -5,6 +5,7 @@ import { clientesMenu } from "./clientesMenu.js";
 import { mercaderesMenu } from "./mercaderesMenu.js";
 import { transaccionesMenu } from "./transaccionesMenu.js";
 import { informesMenu } from "./informesMenu.js";
+import { simulacionesMenu } from "./simulacionMenu.js";
 
 /**
  * Enumeración Comandos
@@ -14,7 +15,8 @@ export enum Menu_Opciones {
   ACCION_CLIENTES = 'Clientes',
   ACCION_MERCADERES = 'Mercaderes',
   TRANSACCIONES = 'Transacciones',
-  GENERAR_INFORME = 'Generar Informe',
+  SIMULACION = 'Simulación',
+  GENERAR_INFORME = 'Generar Informes',
   MOSTRAR_INVENTARIO = 'Mostrar Inventario',
   SALIR = 'Salir'
 }
@@ -60,6 +62,10 @@ export async function mainMenu() {
       console.clear();
       await transaccionesMenu(inventario);
       break;
+    case Menu_Opciones.SIMULACION:
+      console.clear();
+      await simulacionesMenu(inventario);
+      break;
     case Menu_Opciones.GENERAR_INFORME:
       console.clear();
       await informesMenu(inventario);
@@ -74,6 +80,10 @@ export async function mainMenu() {
   }
 }
 
+/**
+ * Función para mostrar el inventario
+ * @param inventario - Inventario
+ */
 async function mostrarInventario(inventario: Inventario) {
   inventario.print();
   await mainMenu();

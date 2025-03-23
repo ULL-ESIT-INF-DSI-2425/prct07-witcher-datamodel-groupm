@@ -4,7 +4,11 @@ import { Bien } from '../module/bien.js';
 import { Cliente } from '../module/cliente.js';
 import { Mercader } from '../module/mercader.js';
 import { JSONFile, Low } from 'lowdb';
+import { Database } from '../interfaces/database.js';
 
+/**
+ * Tipo de datos para la colección de transacciones en formato JSON
+ */
 type JsonTransacciones = {
   transaccion: {
     id: number,
@@ -20,7 +24,7 @@ type JsonTransacciones = {
 /**
  * Clase para gestionar una colección de transacciones en formato JSON
  */
-export class JsonColeccionTransacciones extends ColeccionTransacciones {
+export class JsonColeccionTransacciones extends ColeccionTransacciones implements Database<Transaccion> {
   
   private transaccionesDatebase: Low<JsonTransacciones>;
   /**
@@ -38,7 +42,7 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
    * Función para inicializar la base de datos de transacciones
    * @param transacciones - Lista de transacciones
    */
-  private async initialize(transacciones: Transaccion[] = []) {
+  public async initialize(transacciones: Transaccion[] = []) {
     try {
       // Intentar leer la base de datos
       await this.transaccionesDatebase.read();
@@ -100,7 +104,7 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
   /**
    * Función para actualizar la base de datos con los cambios realizados
    */
-  private actualizarBase() {
+  public actualizarBase(): void {
     this.transaccionesDatebase.data!.transaccion = this.transacciones.map(transaccion => ({
       id: transaccion.id,
       fecha: transaccion.fecha,

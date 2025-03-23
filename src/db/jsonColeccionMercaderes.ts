@@ -1,8 +1,11 @@
 import { ColeccionMercaderes } from '../coleccion/coleccionMercaderes.js';
 import { Mercader, Lugar, Profesion } from '../module/mercader.js';
 import { JSONFile, Low } from 'lowdb';
+import { Database } from '../interfaces/database.js';
 
-
+/**
+ * Tipo de datos para la colección de mercaderes en formato JSON
+ */
 type JsonMercader = {
   mercader: {
     id: number;
@@ -15,7 +18,7 @@ type JsonMercader = {
 /**
  * Clase para gestionar una colección de mercaderes en formato JSON
  */
-export class JsonColeccionMercaderes extends ColeccionMercaderes {
+export class JsonColeccionMercaderes extends ColeccionMercaderes implements Database<Mercader> {
   private mercaderesDatabase: Low<JsonMercader>;
 
   /**
@@ -33,7 +36,7 @@ export class JsonColeccionMercaderes extends ColeccionMercaderes {
    * Función para inicializar la base de datos de mercaderes
    * @param mercaderes - Lista de mercaderes
    */
-  private async initialize(mercaderes: Mercader[] = []) {
+  public async initialize(mercaderes: Mercader[] = []) {
 
     try {
       // Intentar leer la base de datos
@@ -99,7 +102,7 @@ export class JsonColeccionMercaderes extends ColeccionMercaderes {
   /**
    * Función para actualizar la base de datos con los cambios realizados
    */
-  private actualizarBase() {
+  public actualizarBase(): void {
     this.mercaderesDatabase.data!.mercader = this.mercaderes.map(mercader => ({
       id: mercader.id,
       nombre: mercader.nombre,

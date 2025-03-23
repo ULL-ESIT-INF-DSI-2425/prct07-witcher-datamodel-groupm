@@ -1,4 +1,3 @@
-import { Bien } from './bien.js';
 import { JsonColeccionBienes } from '../db/jsonColeccionBienes.js';
 import { JsonColeccionClientes } from '../db/jsonColeccionClientes.js';
 import { JsonColeccionMercaderes } from '../db/jsonColeccionMercaderes.js';

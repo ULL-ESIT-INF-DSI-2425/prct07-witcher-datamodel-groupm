@@ -1,10 +1,10 @@
 import { Mercader, Profesion, Lugar } from "../module/mercader.js";
-import { JSONFile, Low } from 'lowdb';
+import { Coleccion } from "../interfaces/coleccion.js";
 
 /**
  * Clase que representa una coleccion de Mercaderes
  */
-export class ColeccionMercaderes {
+export class ColeccionMercaderes implements Coleccion<Mercader> {
   accessor mercaderes: Mercader[];
 
   /**

@@ -14,7 +14,7 @@
       "descripcion": "Una pala resistente para trabajos pesados.",
       "material": "Cuero endurecido",
       "peso": 15,
-      "valor": 120
+      "valor": 200
     },
     {
       "id": 3,
@@ -29,7 +29,7 @@
       "nombre": "Azada",
       "descripcion": "Herramienta esencial para el cultivo.",
       "material": "Acero de Mahakam",
-      "peso": 12,
+      "peso": 15,
       "valor": 150
     },
     {
@@ -46,7 +46,7 @@
       "descripcion": "Un casco diseñado para proteger la cabeza.",
       "material": "Cuero endurecido",
       "peso": 50,
-      "valor": 250
+      "valor": 150
     },
     {
       "id": 7,
@@ -58,8 +58,8 @@
     },
     {
       "id": 8,
-      "nombre": "Escudo",
-      "descripcion": "Un escudo compacto para defensa.",
+      "nombre": "Pico",
+      "descripcion": "Un pico suave y ligero.",
       "material": "Cuero endurecido",
       "peso": 60,
       "valor": 300
@@ -69,8 +69,8 @@
       "nombre": "Lanza",
       "descripcion": "Una lanza diseñada para el combate a distancia.",
       "material": "Esencia magica",
-      "peso": 110,
-      "valor": 700
+      "peso": 100,
+      "valor": 200
     },
     {
       "id": 10,
@@ -90,9 +90,9 @@
     },
     {
       "id": 12,
-      "nombre": "Botas",
-      "descripcion": "Botas resistentes para largas caminatas.",
-      "material": "Esencia magica",
+      "nombre": "Daga",
+      "descripcion": "Daga corta pero pesada.",
+      "material": "Acero de Mahakam",
       "peso": 20,
       "valor": 100
     },
@@ -101,7 +101,7 @@
       "nombre": "Capa",
       "descripcion": "Una capa ligera para protección contra el clima.",
       "material": "Cuero endurecido",
-      "peso": 5,
+      "peso": 10,
       "valor": 100
     },
     {
@@ -109,32 +109,32 @@
       "nombre": "Arco",
       "descripcion": "Un arco diseñado para la caza.",
       "material": "Acero de Mahakam",
-      "peso": 15,
-      "valor": 250
+      "peso": 20,
+      "valor": 300
     },
     {
       "id": 15,
       "nombre": "Flecha",
       "descripcion": "Flechas afiladas para el combate.",
       "material": "Esencia magica",
-      "peso": 2,
+      "peso": 10,
       "valor": 50
     },
     {
       "id": 16,
-      "nombre": "Ballesta",
-      "descripcion": "Una ballesta precisa y poderosa.",
-      "material": "Acero de Mahakam",
+      "nombre": "Capa",
+      "descripcion": "Mágica.",
+      "material": "Esencia magicam",
       "peso": 40,
-      "valor": 400
+      "valor": 200
     },
     {
       "id": 17,
       "nombre": "Cinturon",
       "descripcion": "Un cinturón reforzado para herramientas.",
       "material": "Cuero endurecido",
-      "peso": 8,
-      "valor": 120
+      "peso": 10,
+      "valor": 100
     },
     {
       "id": 18,
@@ -157,21 +157,21 @@
       "nombre": "Cuchillo",
       "descripcion": "Un cuchillo afilado para tareas diarias.",
       "material": "Cuero endurecido",
-      "peso": 5,
+      "peso": 10,
       "valor": 80
     },
     {
       "id": 21,
-      "nombre": "Baston",
-      "descripcion": "Un bastón mágico para canalizar energía.",
+      "nombre": "Cuchillo",
+      "descripcion": "Un cuchillo mágico para canalizar energía.",
       "material": "Esencia magica",
       "peso": 25,
       "valor": 500
     },
     {
       "id": 22,
-      "nombre": "Cofre",
-      "descripcion": "Un cofre resistente para almacenar objetos.",
+      "nombre": "Cuchillo",
+      "descripcion": "Un cuchillo resistente para atravesar objetos.",
       "material": "Acero de Mahakam",
       "peso": 100,
       "valor": 600
@@ -181,7 +181,7 @@
       "nombre": "Llave",
       "descripcion": "Una llave antigua y misteriosa.",
       "material": "Esencia magica",
-      "peso": 1,
+      "peso": 5,
       "valor": 200
     },
     {
@@ -189,7 +189,7 @@
       "nombre": "Pergamino",
       "descripcion": "Un pergamino con inscripciones mágicas.",
       "material": "Cuero endurecido",
-      "peso": 2,
+      "peso": 5,
       "valor": 300
     },
     {
@@ -197,31 +197,31 @@
       "nombre": "Cetro",
       "descripcion": "Un cetro real con incrustaciones mágicas.",
       "material": "Esencia magica",
-      "peso": 15,
+      "peso": 20,
       "valor": 700
     },
     {
       "id": 26,
       "nombre": "Anillo",
-      "descripcion": "Un anillo encantado con poderes mágicos.",
-      "material": "Esencia magica",
+      "descripcion": "Un anillo barato.",
+      "material": "Cuero endurecido",
       "peso": 1,
-      "valor": 500
+      "valor": 100
     },
     {
       "id": 27,
       "nombre": "Collar",
       "descripcion": "Un collar decorado con gemas preciosas.",
       "material": "Cuero endurecido",
-      "peso": 3,
+      "peso": 10,
       "valor": 400
     },
     {
       "id": 28,
-      "nombre": "Broche",
-      "descripcion": "Un broche antiguo con grabados mágicos.",
+      "nombre": "Anillo",
+      "descripcion": "Un anillo antiguo con grabados mágicos.",
       "material": "Esencia magica",
-      "peso": 2,
+      "peso": 5,
       "valor": 350
     },
     {

@@ -1,3 +1,5 @@
+import { Identificable } from '../interfaces/objetos.js';
+
 /**
  * Tipo Material = 'Acero de Mahakam' | 'cuero endurecido' | 'esencia mágica' | 'mutágenos de bestias antiguas'
  */
@@ -6,7 +8,7 @@ export type Material = 'Acero de Mahakam' | 'Cuero endurecido' | 'Esencia magica
 /**
  * Clase Bien
  */
-export class Bien {
+export class Bien implements Identificable {
   accessor id: number
   accessor nombre: string
   accessor descripcion: string

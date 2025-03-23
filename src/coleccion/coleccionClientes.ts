@@ -1,11 +1,11 @@
 import { Cliente, Raza } from "../module/cliente.js";
 import { Lugar } from '../module/mercader.js';
-import { JSONFile, Low } from 'lowdb';
+import { Coleccion } from "../interfaces/coleccion.js";
 
 /**
  * Clase que representa una coleccion de Clientes
  */
-export class ColeccionClientes {
+export class ColeccionClientes implements Coleccion<Cliente> {
   accessor clientes: Cliente[]
 
   /**
