@@ -39,7 +39,7 @@ export class JsonColeccionClientes extends ColeccionClientes implements Database
    * Función para inicializar la base de datos de clientes
    * @param clientes - Lista de clientes
    */
-  public async initialize(clientes: Cliente[] = []) {
+  public async initialize(clientes: Cliente[] = []): Promise<void> {
     try {
       await this.clientesDatabase.read();
 

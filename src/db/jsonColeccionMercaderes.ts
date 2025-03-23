@@ -36,7 +36,7 @@ export class JsonColeccionMercaderes extends ColeccionMercaderes implements Data
    * Función para inicializar la base de datos de mercaderes
    * @param mercaderes - Lista de mercaderes
    */
-  public async initialize(mercaderes: Mercader[] = []) {
+  public async initialize(mercaderes: Mercader[] = []): Promise<void> {
 
     try {
       // Intentar leer la base de datos
