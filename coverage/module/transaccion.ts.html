@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.51% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.94% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.51% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/29</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,12 +123,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,29 +140,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
-<span class="cline-any cline-yes">42x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">import { Cliente } from "./cliente.js";
 import { Mercader } from "./mercader.js";
 import { Bien } from "./bien.js";
@@ -172,13 +172,13 @@ import { Identificable } from "../interfaces/objetos.js";
  * Clase Transaccion  
  */
 export class Transaccion implements Identificable {
-<span class="fstat-no" title="function not covered" >  accessor id: number;</span>
-<span class="fstat-no" title="function not covered" >  accessor fecha: Date;</span>
-<span class="fstat-no" title="function not covered" >  accessor tipo: 'compra' | 'venta' | 'devolucion';</span>
-<span class="fstat-no" title="function not covered" >  accessor bienes: Bien[];</span>
-<span class="fstat-no" title="function not covered" >  accessor cliente: Cliente;</span>
-<span class="fstat-no" title="function not covered" >  accessor mercader: Mercader; </span>
-<span class="fstat-no" title="function not covered" >  accessor monto: number;</span>
+  accessor id: number;
+  accessor fecha: Date;
+  accessor tipo: 'compra' | 'venta' | 'devolucion';
+  accessor bienes: Bien[];
+  accessor cliente: Cliente;
+  accessor mercader: Mercader; 
+  accessor monto: number;
 &nbsp;
   /**
    * Constructor de la clase Transaccion
@@ -202,17 +202,17 @@ export class Transaccion implements Identificable {
   /**
    * Método para imprimir la información de la transacción
    */
-<span class="fstat-no" title="function not covered" >  print(): void {</span>
-<span class="cstat-no" title="statement not covered" >    console.log( </span>
-<span class="cstat-no" title="statement not covered" >      `Transacción ID: ${this.id}</span>
-<span class="cstat-no" title="statement not covered" >      Tipo: ${this.tipo}</span>
-<span class="cstat-no" title="statement not covered" >      Fecha: ${this.fecha.toLocaleDateString()}</span>
-<span class="cstat-no" title="statement not covered" >      Bienes: ${this.bienes.map(item =&gt; item.nombre).join(', ')}</span>
-<span class="cstat-no" title="statement not covered" >      Monto: ${this.monto} coronas</span>
-<span class="cstat-no" title="statement not covered" >      Cliente: ${this.cliente.nombre}'}</span>
-<span class="cstat-no" title="statement not covered" >      Mercader: ${this.mercader.nombre}'}`</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+  print(): void {
+    console.log( 
+      `Transacción ID: ${this.id}
+      Tipo: ${this.tipo}
+      Fecha: ${this.fecha.toLocaleDateString()}
+      Bienes: ${this.bienes.map(item =&gt; item.nombre).join(', ')}
+      Monto: ${this.monto} coronas
+      Cliente: ${this.cliente.nombre}'}
+      Mercader: ${this.mercader.nombre}'}`
+    );
+  }
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -220,7 +220,7 @@ export class Transaccion implements Identificable {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-23T17:38:15.056Z
+                at 2025-03-23T18:02:52.289Z
             </div>
         <script src="../prettify.js"></script>
         <script>
