@@ -39,7 +39,7 @@ export class JsonColeccionBienes extends ColeccionBienes implements Database<Bie
    * Función para inicializar la base de datos de bienes
    * @param bienes - Lista de bienes
    */
-  public async initialize(bienes: Bien[] = []): Promise<void> {
+  public async initialize(bienes: Bien[] = []) {
     try {
       // Intentar leer la base de datos
       await this.bienesDatabase.read();

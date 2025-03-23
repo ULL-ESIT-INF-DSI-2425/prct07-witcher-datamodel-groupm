@@ -42,7 +42,7 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones implement
    * Función para inicializar la base de datos de transacciones
    * @param transacciones - Lista de transacciones
    */
-  public async initialize(transacciones: Transaccion[] = []): Promise<void> {
+  public async initialize(transacciones: Transaccion[] = []) {
     try {
       // Intentar leer la base de datos
       await this.transaccionesDatebase.read();
