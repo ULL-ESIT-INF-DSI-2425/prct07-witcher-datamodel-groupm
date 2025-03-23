@@ -4,7 +4,7 @@
   "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/nao75Rei) [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=18658541)",
   "main": "index.js",
   "scripts": {
-    "start": "tsc-watch --onSuccess \"node dist/*.js\"",
+    "start": "node dist/index.js",
     "build": "tsc",
     "doc": "typedoc",
     "coverage": "vitest --coverage --coverage.include src/**/*.ts",
@@ -25,7 +25,9 @@
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/inquirer": "^9.0.3",
+    "@types/lowdb": "^1.0.11",
     "@types/node": "^20.0.0",
+    "@vitest/coverage-v8": "^3.0.8",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-tsdoc": "^0.4.0",
@@ -38,6 +40,7 @@
   },
   "dependencies": {
     "inquirer": "^9.1.4",
-    "lowdb": "^5.1.0"
+    "lowdb": "^3.0.0",
+    "typescript": "^5.8.2"
   }
 }

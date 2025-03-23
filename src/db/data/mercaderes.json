@@ -1,0 +1,76 @@
+{
+  "mercader": [
+    {
+      "id": 200,
+      "nombre": "Hattori",
+      "profesion": "Herrero",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 201,
+      "nombre": "Gremist",
+      "profesion": "Alquimista",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 202,
+      "nombre": "Bran",
+      "profesion": "Mercader general",
+      "lugar": "Velen"
+    },
+    {
+      "id": 203,
+      "nombre": "Fergus",
+      "profesion": "Herrero",
+      "lugar": "Velen"
+    },
+    {
+      "id": 204,
+      "nombre": "Yoana",
+      "profesion": "Herrero",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 205,
+      "nombre": "Otto",
+      "profesion": "Mercader general",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 206,
+      "nombre": "Gaspard",
+      "profesion": "Alquimista",
+      "lugar": "Velen"
+    },
+    {
+      "id": 207,
+      "nombre": "Ibrahim",
+      "profesion": "Mercader general",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 208,
+      "nombre": "Cedric",
+      "profesion": "Alquimista",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 209,
+      "nombre": "Bertram",
+      "profesion": "Herrero",
+      "lugar": "Kaer Trolde"
+    },
+    {
+      "id": 210,
+      "nombre": "Lindenvale",
+      "profesion": "Mercader general",
+      "lugar": "Velen"
+    },
+    {
+      "id": 211,
+      "nombre": "Rurik",
+      "profesion": "Alquimista",
+      "lugar": "Novigrado"
+    }
+  ]
+}

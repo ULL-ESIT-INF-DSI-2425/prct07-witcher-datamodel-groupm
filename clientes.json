@@ -1,0 +1,22 @@
+{
+  "cliente": []
+}  {
+      "id": 1,
+      "nombre": "Geralt",
+      "raza": "Humano",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 2,
+      "nombre": "Daniel",
+      "raza": "Elfo",
+      "lugar": "Novigrado"
+    },
+    {
+      "id": 3,
+      "nombre": "Jose",
+      "raza": "Humano",
+      "lugar": "Velen"
+    }
+  ]
+}

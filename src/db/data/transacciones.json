@@ -1,0 +1,280 @@
+{
+  "transaccion": [
+    {
+      "id": 300,
+      "fecha": "2025-03-23T14:34:05.525Z",
+      "tipo": "compra",
+      "bienes": [
+        {
+          "id": 10,
+          "nombre": "Martillo",
+          "descripcion": "Un martillo diseñado para trabajos pesados.",
+          "material": "Acero de Mahakam",
+          "peso": 30,
+          "valor": 100
+        },
+        {
+          "id": 20,
+          "nombre": "Cuchillo",
+          "descripcion": "Un cuchillo afilado para tareas diarias.",
+          "material": "Cuero endurecido",
+          "peso": 10,
+          "valor": 80
+        }
+      ],
+      "cliente": {
+        "id": 100,
+        "nombre": "Geralt",
+        "raza": "Humano",
+        "lugar": "Novigrado"
+      },
+      "mercader": {
+        "id": 200,
+        "nombre": "Hattori",
+        "profesion": "Herrero",
+        "lugar": "Novigrado"
+      },
+      "monto": 180
+    },
+    {
+      "id": 301,
+      "fecha": "2025-03-23T14:34:05.525Z",
+      "tipo": "venta",
+      "bienes": [
+        {
+          "id": 10,
+          "nombre": "Martillo",
+          "descripcion": "Un martillo diseñado para trabajos pesados.",
+          "material": "Acero de Mahakam",
+          "peso": 30,
+          "valor": 100
+        },
+        {
+          "id": 20,
+          "nombre": "Cuchillo",
+          "descripcion": "Un cuchillo afilado para tareas diarias.",
+          "material": "Cuero endurecido",
+          "peso": 10,
+          "valor": 80
+        }
+      ],
+      "cliente": {
+        "id": 100,
+        "nombre": "Geralt",
+        "raza": "Humano",
+        "lugar": "Novigrado"
+      },
+      "mercader": {
+        "id": 200,
+        "nombre": "Hattori",
+        "profesion": "Herrero",
+        "lugar": "Novigrado"
+      },
+      "monto": 180
+    },
+    {
+      "id": 302,
+      "fecha": "2025-03-23T14:34:05.525Z",
+      "tipo": "compra",
+      "bienes": [
+        {
+          "id": 1,
+          "nombre": "Espada",
+          "descripcion": "Una espada diseñada para el combate cuerpo a cuerpo.",
+          "material": "Acero de Mahakam",
+          "peso": 120,
+          "valor": 600
+        },
+        {
+          "id": 21,
+          "nombre": "Cuchillo",
+          "descripcion": "Un cuchillo mágico para canalizar energía.",
+          "material": "Esencia magica",
+          "peso": 25,
+          "valor": 500
+        }
+      ],
+      "cliente": {
+        "id": 110,
+        "nombre": "Vesemir",
+        "raza": "Humano",
+        "lugar": "Kaer Trolde"
+      },
+      "mercader": {
+        "id": 205,
+        "nombre": "Otto",
+        "profesion": "Mercader general",
+        "lugar": "Novigrado"
+      },
+      "monto": 1100
+    },
+    {
+      "id": 303,
+      "fecha": "2025-03-23T14:34:05.525Z",
+      "tipo": "venta",
+      "bienes": [
+        {
+          "id": 1,
+          "nombre": "Espada",
+          "descripcion": "Una espada diseñada para el combate cuerpo a cuerpo.",
+          "material": "Acero de Mahakam",
+          "peso": 120,
+          "valor": 600
+        },
+        {
+          "id": 21,
+          "nombre": "Cuchillo",
+          "descripcion": "Un cuchillo mágico para canalizar energía.",
+          "material": "Esencia magica",
+          "peso": 25,
+          "valor": 500
+        }
+      ],
+      "cliente": {
+        "id": 110,
+        "nombre": "Vesemir",
+        "raza": "Humano",
+        "lugar": "Kaer Trolde"
+      },
+      "mercader": {
+        "id": 205,
+        "nombre": "Otto",
+        "profesion": "Mercader general",
+        "lugar": "Novigrado"
+      },
+      "monto": 1100
+    },
+    {
+      "id": 304,
+      "fecha": "2025-03-23T14:34:05.525Z",
+      "tipo": "devolucion",
+      "bienes": [
+        {
+          "id": 10,
+          "nombre": "Martillo",
+          "descripcion": "Un martillo diseñado para trabajos pesados.",
+          "material": "Acero de Mahakam",
+          "peso": 30,
+          "valor": 100
+        }
+      ],
+      "cliente": {
+        "id": 100,
+        "nombre": "Geralt",
+        "raza": "Humano",
+        "lugar": "Novigrado"
+      },
+      "mercader": {
+        "id": 200,
+        "nombre": "Hattori",
+        "profesion": "Herrero",
+        "lugar": "Novigrado"
+      },
+      "monto": 100
+    },
+    {
+      "id": 305,
+      "fecha": "2025-03-23T14:35:09.918Z",
+      "tipo": "compra",
+      "bienes": [
+        {
+          "id": 1,
+          "nombre": "Espada",
+          "descripcion": "Una espada diseñada para el combate cuerpo a cuerpo.",
+          "material": "Acero de Mahakam",
+          "peso": 120,
+          "valor": 600
+        },
+        {
+          "id": 2,
+          "nombre": "Pala",
+          "descripcion": "Una pala resistente para trabajos pesados.",
+          "material": "Cuero endurecido",
+          "peso": 15,
+          "valor": 200
+        },
+        {
+          "id": 20,
+          "nombre": "Cuchillo",
+          "descripcion": "Un cuchillo afilado para tareas diarias.",
+          "material": "Cuero endurecido",
+          "peso": 10,
+          "valor": 80
+        },
+        {
+          "id": 18,
+          "nombre": "Yelmo",
+          "descripcion": "Un yelmo diseñado para proteger la cabeza.",
+          "material": "Acero de Mahakam",
+          "peso": 60,
+          "valor": 300
+        }
+      ],
+      "cliente": {
+        "id": 115,
+        "nombre": "Philippa",
+        "raza": "Hechicero",
+        "lugar": "Novigrado"
+      },
+      "mercader": {
+        "id": 211,
+        "nombre": "Rurik",
+        "profesion": "Alquimista",
+        "lugar": "Novigrado"
+      },
+      "monto": 1180
+    },
+    {
+      "id": 306,
+      "fecha": "2025-03-23T14:35:09.918Z",
+      "tipo": "venta",
+      "bienes": [
+        {
+          "id": 1,
+          "nombre": "Espada",
+          "descripcion": "Una espada diseñada para el combate cuerpo a cuerpo.",
+          "material": "Acero de Mahakam",
+          "peso": 120,
+          "valor": 600
+        },
+        {
+          "id": 2,
+          "nombre": "Pala",
+          "descripcion": "Una pala resistente para trabajos pesados.",
+          "material": "Cuero endurecido",
+          "peso": 15,
+          "valor": 200
+        },
+        {
+          "id": 20,
+          "nombre": "Cuchillo",
+          "descripcion": "Un cuchillo afilado para tareas diarias.",
+          "material": "Cuero endurecido",
+          "peso": 10,
+          "valor": 80
+        },
+        {
+          "id": 18,
+          "nombre": "Yelmo",
+          "descripcion": "Un yelmo diseñado para proteger la cabeza.",
+          "material": "Acero de Mahakam",
+          "peso": 60,
+          "valor": 300
+        }
+      ],
+      "cliente": {
+        "id": 115,
+        "nombre": "Philippa",
+        "raza": "Hechicero",
+        "lugar": "Novigrado"
+      },
+      "mercader": {
+        "id": 211,
+        "nombre": "Rurik",
+        "profesion": "Alquimista",
+        "lugar": "Novigrado"
+      },
+      "monto": 1180
+    }
+  ]
+}
