@@ -2,5 +2,7 @@
   "entryPoints": [
     "src/**/**/*.ts"
   ],
+  "readme": "README.md",
+  "exclude": ["**/*.test.ts", "**/node_modules/**"],
   "out": "./docs",
 }
