@@ -31,7 +31,7 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
     super();
     const adapter = new JSONFile<JsonTransacciones>('src/db/data/transacciones.json');
     this.transaccionesDatebase = new Low(adapter);
-    this.initialize();
+    this.initialize(transacciones);
   }
 
   /**
@@ -113,13 +113,33 @@ export class JsonColeccionTransacciones extends ColeccionTransacciones {
    * Función para actualizar la base de datos con los cambios realizados
    */
   private actualizarBase() {
+    // if (!this.transaccionesDatebase.data) {
+    //   this.transaccionesDatebase.data = { transaccion: [] };
+    // }
     this.transaccionesDatebase.data!.transaccion = this.transacciones.map(transaccion => ({
       id: transaccion.id,
       fecha: transaccion.fecha,
       tipo: transaccion.tipo,
-      bienes: transaccion.bienes,
-      cliente: transaccion.cliente,
-      mercader: transaccion.mercader,
+      bienes: transaccion.bienes.map(b => ({
+        id: b.id,
+        nombre: b.nombre,
+        descripcion: b.descripcion,
+        material: b.material,
+        peso: b.peso,
+        valor: b.valor
+      })) as Bien[],
+      cliente: {
+        id: transaccion.cliente.id,
+        nombre: transaccion.cliente.nombre,
+        raza: transaccion.cliente.raza,
+        lugar: transaccion.cliente.lugar
+      } as Cliente,
+      mercader: {
+        id: transaccion.mercader.id,
+        nombre: transaccion.mercader.nombre,
+        profesion: transaccion.mercader.profesion,
+        lugar: transaccion.mercader.lugar
+      } as Mercader,
       monto: transaccion.monto
     }));
     this.transaccionesDatebase.write();

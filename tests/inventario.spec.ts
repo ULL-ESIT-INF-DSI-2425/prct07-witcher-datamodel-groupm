@@ -24,4 +24,8 @@ describe('Inventario', () => {
     expect(inventario.clientes).toBeDefined();
   });
 
+  test('Inventario.print', () => {
+    expect(inventario.print).toBeDefined();
+  });
+
 });

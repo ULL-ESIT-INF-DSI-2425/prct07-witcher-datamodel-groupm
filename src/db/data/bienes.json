@@ -63,6 +63,14 @@
       "material": "Pluma",
       "peso": 12,
       "valor": 2
+    },
+    {
+      "id": 11,
+      "nombre": "Lanza",
+      "descripcion": "Prueba",
+      "material": "Cuero endurecido",
+      "peso": 1,
+      "valor": 15
     }
   ]
 }

@@ -74,7 +74,7 @@ export class ColeccionClientes {
   buscar(campo: "ID" | "Raza" | "Nombre" | "Lugar", busqueda: string): ColeccionClientes {
     switch (campo) {
       case "ID":
-        return new ColeccionClientes(this.clientes.filter(c => c.id.toString() === busqueda));
+        return new ColeccionClientes(this.clientes.filter(c => c.id === Number(busqueda)));
       case "Nombre":
         return new ColeccionClientes(this.clientes.filter(c => c.nombre.includes(busqueda)));
       case "Raza":

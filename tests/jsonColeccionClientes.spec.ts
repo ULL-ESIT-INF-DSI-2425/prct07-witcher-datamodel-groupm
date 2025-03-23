@@ -1,4 +1,4 @@
-import { describe, it ,test, expect, beforeEach, vi } from 'vitest';
+import { describe,test, expect, beforeEach, vi } from 'vitest';
 import inquirer from 'inquirer';
 import { JsonColeccionBienes } from '../src/db/jsonColeccionBienes';
 import { Bien } from '../src/module/bien';

@@ -3,6 +3,9 @@ import { Inventario } from "../module/inventario.js";
 import inquirer from 'inquirer';
 import { mainMenu } from './mainMenu.js';
 import { Transaccion } from "../module/transaccion.js";
+import { Bien } from "../module/bien.js";
+import { Mercader } from "../module/mercader.js";
+import { Cliente } from "../module/cliente.js";
 
 /**
  * Función para mostrar el menú de transacciones
@@ -46,6 +49,7 @@ export async function transaccionesMenu(inventario: Inventario) {
  * @param inventario - Inventario
  */
 async function registrarCompra(inventario: Inventario) {
+  inventario.print();
   const { id, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {
       type: 'number',
@@ -53,10 +57,9 @@ async function registrarCompra(inventario: Inventario) {
       message: 'ID de la transacción',
     },
     { // Puede fallar
-      type: 'checkbox',
+      type: 'input',
       name: 'bienes',
-      message: 'Bienes',
-      choices: (inventario.bienes as unknown as any[]).map((item: any) => item.nombre),
+      message: 'Introduce los bienes (separados por comas)',
     },
     {
       type: 'number',
@@ -74,19 +77,16 @@ async function registrarCompra(inventario: Inventario) {
       message: 'Introduce el id del mercader',
     },
   ]);
+  inventario.clientes.print();
 
-  let buscarCliente = inventario.clientes.buscar('ID', cliente);
-  let buscarMercader = inventario.mercaderes.buscar('ID', mercader);
-  if (buscarCliente.clientes.length === 0) {
-    console.log('Cliente no encontrado.');
-    return;
-  }
-  if (buscarMercader.mercaderes.length === 0) {
-    console.log('Mercader no encontrado.');
-    return;
-  }
-  let bienesTransaccion = (inventario.bienes as unknown as any[]).filter((item: any) => bienes.includes(item.nombre));
-  let transaccion = new Transaccion(id, "compra", bienesTransaccion, monto, buscarCliente.clientes[0], buscarMercader.mercaderes[0]);
+  let buscarCliente: Cliente = inventario.clientes.buscar('ID', cliente).clientes[0];
+  let buscarMercader: Mercader = inventario.mercaderes.buscar('ID', mercader).mercaderes[0];
+  let bienesTransaccion: Bien[] = bienes.split(',').map((item: string) => {
+    let bien = inventario.bienes.buscar('ID', item.trim());
+    return bien.bienes[0];
+  });
+  let transaccion = new Transaccion(id, "compra", bienesTransaccion, monto, buscarCliente, buscarMercader);
+  inventario.transacciones.añadir(transaccion);
   await transaccionesMenu(inventario);
 }
 
@@ -95,17 +95,17 @@ async function registrarCompra(inventario: Inventario) {
  * @param inventario - Inventario
  */
 async function registrarVenta(inventario: Inventario) {
+  inventario.print();
   const { id, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {
       type: 'number',
       name: 'id',
       message: 'ID de la transacción',
     },
-    {
-      type: 'checkbox',
+    { // Puede fallar
+      type: 'input',
       name: 'bienes',
-      message: 'Bienes',
-      choices: (inventario.bienes as unknown as any[]).map((item: any) => item.nombre),
+      message: 'Introduce los bienes (separados por comas)',
     },
     {
       type: 'number',
@@ -115,7 +115,7 @@ async function registrarVenta(inventario: Inventario) {
     {
       type: 'number',
       name: 'cliente',
-      message: 'Introduce el id del cliente',
+      message: 'introduce el id del cliente',
     },
     {
       type: 'number',
@@ -123,19 +123,16 @@ async function registrarVenta(inventario: Inventario) {
       message: 'Introduce el id del mercader',
     },
   ]);
+  inventario.clientes.print();
 
-  let buscarCliente = inventario.clientes.buscar('ID', cliente);
-  let buscarMercader = inventario.mercaderes.buscar('ID', mercader);
-  if (buscarCliente.clientes.length === 0) {
-    console.log('Cliente no encontrado.');
-    return;
-  }
-  if (buscarMercader.mercaderes.length === 0) {
-    console.log('Mercader no encontrado.');
-    return;
-  }
-  let bienesTransaccion = (inventario.bienes as unknown as any[]).filter((item: any) => bienes.includes(item.nombre));
-  let transaccion = new Transaccion(id, "venta", bienesTransaccion, monto, buscarCliente.clientes[0], buscarMercader.mercaderes[0]);
+  let buscarCliente: Cliente = inventario.clientes.buscar('ID', cliente).clientes[0];
+  let buscarMercader: Mercader = inventario.mercaderes.buscar('ID', mercader).mercaderes[0];
+  let bienesTransaccion: Bien[] = bienes.split(',').map((item: string) => {
+    let bien = inventario.bienes.buscar('ID', item.trim());
+    return bien.bienes[0];
+  });
+  let transaccion = new Transaccion(id, "venta", bienesTransaccion, monto, buscarCliente, buscarMercader);
+  inventario.transacciones.añadir(transaccion);
   await transaccionesMenu(inventario);
 }
 
@@ -144,17 +141,17 @@ async function registrarVenta(inventario: Inventario) {
  * @param inventario - Inventario
  */
 async function registrarDevolucion(inventario: Inventario) {
+  inventario.print();
   const { id, bienes, monto, cliente, mercader } = await inquirer.prompt([
     {
       type: 'number',
       name: 'id',
       message: 'ID de la transacción',
     },
-    {
-      type: 'checkbox',
+    { // Puede fallar
+      type: 'input',
       name: 'bienes',
-      message: 'Bienes',
-      choices: (inventario.bienes as unknown as any[]).map((item: any) => item.nombre),
+      message: 'Introduce los bienes (separados por comas)',
     },
     {
       type: 'number',
@@ -164,7 +161,7 @@ async function registrarDevolucion(inventario: Inventario) {
     {
       type: 'number',
       name: 'cliente',
-      message: 'Introduce el id del cliente',
+      message: 'introduce el id del cliente',
     },
     {
       type: 'number',
@@ -172,18 +169,15 @@ async function registrarDevolucion(inventario: Inventario) {
       message: 'Introduce el id del mercader',
     },
   ]);
+  inventario.clientes.print();
 
-  let buscarCliente = inventario.clientes.buscar('ID', cliente);
-  let buscarMercader = inventario.mercaderes.buscar('ID', mercader);
-  if (buscarCliente.clientes.length === 0) {
-    console.log('Cliente no encontrado.');
-    return;
-  }
-  if (buscarMercader.mercaderes.length === 0) {
-    console.log('Mercader no encontrado.');
-    return;
-  }
-  let bienesTransaccion = (inventario.bienes as unknown as any[]).filter((item: any) => bienes.includes(item.nombre));
-  let transaccion = new Transaccion(id, "devolucion", bienesTransaccion, monto, buscarCliente.clientes[0], buscarMercader.mercaderes[0]);
+  let buscarCliente: Cliente = inventario.clientes.buscar('ID', cliente).clientes[0];
+  let buscarMercader: Mercader = inventario.mercaderes.buscar('ID', mercader).mercaderes[0];
+  let bienesTransaccion: Bien[] = bienes.split(',').map((item: string) => {
+    let bien = inventario.bienes.buscar('ID', item.trim());
+    return bien.bienes[0];
+  });
+  let transaccion = new Transaccion(id, "devolucion", bienesTransaccion, monto, buscarCliente, buscarMercader);
+  inventario.transacciones.añadir(transaccion);
   await transaccionesMenu(inventario);
 }
