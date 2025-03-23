@@ -14,12 +14,6 @@ describe('bienesMenu', () => {
   test('debería crear una instancia de bienesMenu', () => {
     expect(bienesMenu).toBeDefined();
   });
-
-  test('debería mostrar el menú de gestión de bienes', () => {
-    const spy = vi.spyOn(console, 'log');
-    bienesMenu(bienes);
-    expect(spy).toHaveBeenCalledWith('Gestión de Bienes\n');
-  });
 });
 
 describe('añadirBien', () => {

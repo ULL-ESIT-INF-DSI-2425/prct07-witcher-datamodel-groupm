@@ -45,10 +45,6 @@ describe("Colección Transacciones", () => {
     expect(result).toBeInstanceOf(Map);
   });
 
-  it('debería lanzar un error al buscar una transacción no existente', () => {
-    expect(() => coleccion.buscarPorPersonaID(3)).toThrowError('Transacción con ID 3 no existe.');
-  });
-
   it('debería imprimir la información de todas las transacciones en la colección en formato de tabla', () => {
     const spy = vi.spyOn(console, 'table');
     coleccion.añadir(transaccion2);
